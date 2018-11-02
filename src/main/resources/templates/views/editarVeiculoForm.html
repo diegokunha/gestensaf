@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>Index Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+		<div class="wrapper">
+			<div class="page">
+				<div class="page-inner">
+					<header class="page-title-bar">
+						<div class="d-md-flex align-itens-md-start">
+							<h1 class="page-title mr-sm-auto">Editar Veículo</h1>			
+						</div>
+					</header>
+					<div class="page-section">
+						<section id="base-style" class="card">
+							<div class="card-body">
+								<form th:action="@{../alteraVeiculo}" th:object="${veiculo}" method="post" class="needs-validation">
+									<input type="hidden" th:field="*{status}"/>
+									<fieldset>
+										<div class="container">
+											<div class="row">
+												<div class="col-2 form-group">
+													<label for="placa">Placa:</label>
+													<input type="text" class="form-control" id="placa" value="placa" th:field="*{placa}"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="marca">Marca:</label>
+													<input type="text" class="form-control" id="marca" th:field="*{marca}"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="modelo">Modelo:</label>
+													<input type="text" class="form-control" id="modelo" th:field="*{modelo}"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="km">KM:</label>
+													<input type="text" class="form-control" id="km"  th:field="*{km}"/>
+												</div>
+												<div class="col-3 form-group">
+						                          <label class="d-block">Situação:</label>
+						                          <div class="custom-control custom-control-inline custom-radio">
+						                            <input type="radio" class="custom-control-input" th:field="*{situacao}" id="rd1" value="true" />
+						                            <label class="custom-control-label" for="rd1">Ativo</label>
+						                          </div>
+						                          <div class="custom-control custom-control-inline custom-radio">
+						                            <input type="radio" class="custom-control-input" th:field="*{situacao}" id="rd2" value="false"/>
+						                            <label class="custom-control-label" for="rd2">Inativo</label>
+						                          </div>
+						                        </div>
+											</div>
+											<div class="row">
+												<div class="col-3 form-group">
+													<label for="renavan">Renavan:</label>
+													<input type="text" class="form-control" id="renavan" th:field="*{renavan}"/>
+												</div>
+												<div class="col-3 form-group">
+													<label for="chassi">Chassi:</label>
+													<input type="text" class="form-control" id="chassi" th:field="*{chassi}"/>
+												</div>
+												<div class="col-1 form-group">
+													<label for="anoModelo">Ano Mod.:</label>
+													<input type="text" class="form-control" id="anoModelo" th:field="*{anoModelo}"/>
+												</div>
+												<div class="col-1 form-group">
+													<label for="anoFabricao">Ano Fabr.:</label>
+													<input type="text" class="form-control" id="anoFabricao" th:field="*{anoFabricao}"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="cor">Cor:</label>
+													<input type="text" class="form-control" id="cor" th:field="*{cor}"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="tipoCombustivel">Tipo Combustível:</label>
+													<input type="text" class="form-control" id="tipoCombustivel" th:field="*{tipoCombustivel}"/>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+									<hr/>
+									<fieldset>
+										<legend>Observações</legend>
+										<div class="container">
+											<div class="form-group">
+													<textarea class="form-control" id="obs" rows="3" th:field="*{obs}"></textarea>
+											</div>
+											<div class="form-group">
+												<button type="submit" class="btn btn-primary">Salvar</button>
+												<button type="submit" class="btn btn-secondary">
+													<a th:href="@{/veiculo}">Cancelar</a>
+												</button>												
+											</div>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</main>
+</body>
+</html>

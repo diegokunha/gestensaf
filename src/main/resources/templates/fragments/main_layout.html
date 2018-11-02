@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>GESTENSAF - GESTÃO DE FROTAS</title>
+
+<script type="text/javascript" th:src="@{/js/pace.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/MascaraValidacao.js}"></script>
+
+
+<!-- Adicionando JQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+ 
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+<link rel="stylesheet" th:href="@{/css/pace.min.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous" />
+<link rel="stylesheet" th:href="@{/css/main.min.css}" />
+
+</head>
+<body>
+	<div class="col-md-3">
+		<div th:replace="fragments/header::header"></div>
+
+		<div th:replace="fragments/sidebar-menu::sidebar-menu"></div>
+	</div>
+	
+	<div layout:fragment="content"></div>
+	
+	<div th:replace="fragments/footer::footer"></div>
+
+	<!-- BASE JS -->
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+	<!-- PLUGINS JS -->
+	<script type="text/javascript" th:src="@{/js/stacked-menu.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/perfect-scrollbar.min.js}"></script>
+
+	<!-- Tag de site global (gtag.js) - Google Analytics -->
+	<script type="text/javascript" th:src="@{/js/gtag.js}"></script>
+
+	<!-- TEMA -->
+	<script type="text/javascript" th:src="@{/js/main.min.js}"></script>
+
+</body>
+</html>

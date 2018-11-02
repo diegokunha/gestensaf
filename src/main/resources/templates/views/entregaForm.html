@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>GESTENSAF - Entregas</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Adicionando JQuery -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+
+<!-- Adicionando Javascript -->
+<script type="text/javascript" th:src="@{/js/pesquisaCep.js}"></script>
+
+<!-- Adicionando Javascript -->
+<script type="text/javascript" th:src="@{/js/novamanutencao.controller.js}"></script>
+
+
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+	<div class="wrapper">
+		<div class="page">
+			<div class="page-inner">
+				<header class="page-title-bar">
+					<div class="d-md-flex align-itens-md-start">
+						<h1 class="page-title mr-sm-auto">Nova Entrega</h1>
+					</div>
+				</header>
+				<section id="base-style" class="card">
+					<div class="card-body">
+							<form th:object="${entrega}" th:action="@{/salvaEntrega}" method="post" class="needs-validation was-validate">
+								<fieldset>
+								<div class="form-group row">
+									<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+										<div th:each="detailedError : ${#fields.detailedErrors()}">
+											<span th:text="${detailedError.message}"></span>
+										</div>
+									</div>
+								</div>
+									<div class="container">
+										<div class="row">
+											<div class="col-2 form-group" >
+												<label for="placa">Placa:</label>
+												<div class="input-group input-group-alt">
+													<div class="input-group mb-3">
+														<input type="text" class="form-control" id="placa" th:field="*{veiculo.placa}" required="required" readonly="readonly"/>
+														<div class="input-group-append">
+															<button class="btn btn-dark" type="button" data-toggle="modal" data-target="#modalPlaca">
+																<i class="fas fa-search"></i>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-3 form-group" >
+												<label for="cpf">CPF:</label>
+												<div class="input-group input-group-alt">
+													<div class="input-group mb-3">
+														<input type="text" class="form-control" id="cpf" th:field="*{funcionario.cpf}" required="required" readonly="readonly"/>
+														<div class="input-group-append">
+															<button class="btn btn-dark" type="button" data-toggle="modal" data-target="#modalFuncionario">
+																<i class="fas fa-search"></i>
+															</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-4 form-group">
+												<label for="nome">Nome:</label>
+												<input type="text" class="form-control" id="nome" th:field="*{funcionario.nome}" readonly="readonly"  />
+											</div>
+											<div class="col-3 form-group">
+												<label for="dataEntrega">Data da Entrega:</label>
+												<input type="date" class="form-control" id="dataEntrega" th:field="*{dataEntrega}" />
+											</div>
+											</div>
+										
+										<div class="row">
+											<div class="col-2 form-group">
+												<label for="cep">CEP:</label>
+												<input type="text" class="form-control" id="cep" th:field="*{endereco.cep}" size="8" maxlength="8" />
+											</div>
+											<div class="col-5 form-group">
+												<label for="rua">Endereço:</label>
+												<input type="text" class="form-control" id="rua"  th:field="*{endereco.logradouro}" readonly="readonly"/>
+											</div>
+											<div class="col-1 form-group">
+												<label for="numero">Nº:</label>
+												<input type="text" class="form-control" id="numero" th:field="*{numero}"/>
+											</div>
+											<div class="col-4 form-group">
+												<label for="complemento">Complemento:</label>
+												<input type="text" class="form-control" id="complemento" th:field="*{complemento}"/>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-5 form-group">
+												<label for="bairro">Bairro:</label>
+												<input type="text" class="form-control" id="bairro"  th:field="*{endereco.bairro}" readonly="readonly"/>
+											</div>
+											<div class="col-5 form-group">
+												<label for="cidade">Municipio:</label>
+												<input type="text" class="form-control" id="cidade" th:field="*{endereco.municipio}" readonly="readonly"/>
+											</div>
+											<div class="col-2 form-group">
+												<label for="uf">UF:</label>
+												<input type="text" class="form-control" id="uf" th:field="*{endereco.uf.uf}" readonly="readonly"/>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 form-group">
+												<label for="valor">Valor:</label>
+												<input type="text" class="form-control" id="valor" th:field="*{valor}" />
+											</div>
+											<div class="col-3 form-group">
+												<label for="contato">Contato:</label>
+												<input type="text" class="form-control" id="contato" th:field="*{contato}" />
+											</div>
+										</div>
+									</div>
+								</fieldset>
+								<hr/>
+								<fieldset id="step-4">
+									<legend>Descrição</legend>
+									<div class="container">
+										<div class="form-group">
+												<textarea class="form-control" id="descricao" rows="3" th:field="*{descricao}"></textarea>
+										</div>
+										<div class="form-group">
+											<button type="submit" class="btn btn-primary">Salvar</button>
+											<button type="submit" class="btn btn-secondary">
+												<a th:href="@{/entrega}">Cancelar</a>
+											</button>												
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modalPlaca">
+		    <div class="modal-dialog modal-sm">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h4 class="modal-title">Localizar Placa...</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body">
+		        	<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Placa</th>
+									<th style="width:50px; min-width:50px;">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody class="veiculos">
+
+							</tbody>
+						</table>
+					</div>
+		        </div>
+		        </div>
+		    </div>
+	  </div>
+	  <div class="modal fade" id="modalFuncionario" role="dialog">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h4 class="modal-title">Localizar Funcionário...</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body">
+		        	<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>CPF</th>
+									<th>Nome</th>
+									<th style="width:100px; min-width:100px;">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody class="funcionarios">
+
+							</tbody>
+						</table>
+					</div>
+		        </div>
+		        </div>
+		    </div>
+	  </div>
+	</main>
+
+</body>
+</html>

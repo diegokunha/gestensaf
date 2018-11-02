@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>GESTENSAF - Veículos</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+		<div class="wrapper">
+			<div class="page">
+				<div class="page-inner">
+					<header class="page-title-bar">
+						<button type="button" class="btn btn-success btn-floated">
+							<a th:href="@{/novoVeiculo}" sytle="text-decoration:none;">
+								<span class="fa fa-plus"></span>
+							</a>
+						</button>
+						<div class="d-md-flex align-itens-md-start">
+							<h1 class="page-title mr-sm-auto">Veículos</h1>
+							
+							<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+							<div class="mdl-list__item" th:if="${msg_resultado}">						 	
+							 	<p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}" >...</p>		
+							</div>			
+						</div>
+					</header>
+					<div class="page-section">
+						<section class="card card-fluid">
+							<div class="card-body">
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" placeholder="Digite aqui a placa do veículo a ser localizado"/>
+										<div class="input-group-append">
+											<button class="btn btn-primary" type="button">
+												Localizar
+											</button>
+										</div>
+									</div>
+									<div class="table-responsive">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th>Placa</th>
+													<th>Marca</th>
+													<th>Modelo</th>
+													<th>KM</th>
+													<th>Status</th>
+													<th>Situação</th>													
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="veiculo : ${veiculo}">
+													<td>
+														<a th:href="@{/veiculo/{placa}(placa = ${veiculo.placa})}">
+															<span th:text="${veiculo.placa}"></span>
+														</a>
+													</td>
+													<td><span th:text="${veiculo.marca}"></span></td>
+													<td><span th:text="${veiculo.modelo}"></span></td>
+													<td><span th:text="${veiculo.km}"></span></td>
+													<td><span th:text="${veiculo.status}"></span></td>
+													<td th:switch="${veiculo.situacao}">
+														<span th:case="true">ATIVO</span>
+														<span th:case="false">INATIVO</span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<ul></ul>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

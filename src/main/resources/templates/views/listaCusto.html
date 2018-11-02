@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>GESTENSAF - Custoss</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+		<div class="wrapper">
+			<div class="page">
+				<div class="page-inner">
+					<header class="page-title-bar">
+						<button type="button" class="btn btn-success btn-floated">
+							<a href="#"><span class="material-icons">add</span></a>
+						</button>
+						<div class="d-md-flex align-itens-md-start">
+							<h1 class="page-title mr-sm-auto">Custos</h1>			
+						</div>
+					</header>
+					<div class="page-section">
+						<section class="card card-fluid">
+							<div class="card-body">
+								<div class="form-group" th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+									<div class="input-group input-group-alt">
+									<form th:action="@{/buscaEntrega/id}" method="get" role="search">
+										<div class="input-group mb-3">
+											
+												<input type="text" name="id" class="form-control" placeholder="Número da entrega..." />
+												<div class="input-group-append">
+													<button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+												</div>
+											
+										</div>
+										</form>
+									</div>
+									
+									<div class="panel-heading">
+						                <span th:text="${#strings.isEmpty(message)} ? '' : ${message}"> </span>
+						            </div>
+									
+									<div class="table-responsive">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th>Código</th>
+													<th style="width:600px; min-width:600px;">Descrição</th>
+													<th>Data</th>
+													<th>Valor</th>
+													<th style="width:140px; min-width:140px;">&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="entrega : ${entregas}">
+													<td>
+														<a th:href="@{/editaEntrega/{id}(id = ${entrega.idEntrega})}">
+															<span th:text="${entrega.idEntrega}"></span>
+														</a>
+													</td>
+													<td><span th:text="${entrega.status}"></span></td>
+													<td><span th:text="${entrega.veiculo.placa}"></span></td>													
+													<td><span th:text="${entrega.funcionario.nome}"></span></td>
+													<td><span th:text="${entrega.endereco.municipio}"></span></td>
+													<td><span th:text="${#dates.format(entrega.dataEntrega, 'dd/MM/yyyy')}" ></span></td>
+													<td><span th:text="${entrega.valor}"></span></td>
+													<td class="align-middle text-right">
+														<a class="btn btn-sm btn-secondary" href="#">
+															<i class="fas fa-print"><span class="sr-only">Imprimir</span></i>
+														</a>
+														<a class="btn btn-sm btn-secondary" href="#">
+															<i class="fas fa-check"><span class="sr-only">Finalizar</span></i>
+														</a>
+														<a class="btn btn-sm btn-secondary" href="#">
+															<i class="fas fa-ban"></i><span class="sr-only">Cancelar</span>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

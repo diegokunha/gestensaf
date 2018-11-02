@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>GESTENSAF - Finalização de Entregas</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" th:src="@{/js/formataMonetario.js}"></script>
+
+
+<script>
+
+function calcular() {
+	
+  //Obtemos o valor do encargo e desconto
+  	var cv = Number(document.getElementById("custoVeiculo").value);
+	var cp = Number(document.getElementById("custoPedagio").value);
+  	var cm = Number(document.getElementById("custoMotorista").value);
+  	var oc = Number(document.getElementById("outrosCustos").value);
+  	var t = cv + cp + cm + oc;
+  
+  	//Atualizamos o campo "totalCustos" com o valor total
+  	if(Number.isNaN(t))
+  		t=0;
+  		document.getElementById("custoTotal").value = t.toLocaleString('pt-BR');
+}
+
+</script>
+
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+	<div class="wrapper">
+		<div class="page">
+			<div class="page-inner">
+				<header class="page-title-bar">
+					<div class="d-md-flex align-itens-md-start">
+						<h1 class="page-title mr-sm-auto">Finalização da Entrega <span th:object="${finalEntrega}" th:text="*{idEntrega}"></span></h1>
+					</div>
+				</header>
+				<section id="base-style" class="card">
+					<div class="card-body">
+							<form th:object="${finalEntrega}" method="get" class="needs-validation was-validate">
+								<fieldset>
+									<legend>Dados da Entrega</legend>								
+									<div class="container">
+										<div class="row">											
+											<div class="col-2 form-group" >
+												<label for="placa">Placa:</label>
+												<input type="text" class="form-control" id="placa" th:field="*{veiculo.placa}" required="required" readonly="readonly"/>
+											</div>
+											<div class="col-3 form-group" >
+												<label for="cpf">CPF do Motorista:</label>
+												<input type="text" class="form-control cpf" id="cpf" th:field="*{funcionario.cpf}" required="required" readonly="readonly"/>
+											</div>
+											<div class="col-4 form-group">
+												<label for="nome">Motorista:</label>
+												<input type="text" class="form-control" id="nome" th:field="*{funcionario.nome}" readonly="readonly"  />
+											</div>
+											<div class="col-3 form-group">
+												<label for="dataEntrega">Data da Entrega:</label>
+												<input type="date" class="form-control" id="dataEntrega" th:field="*{dataEntrega}" readonly="readonly"  />
+											</div>
+										</div>
+									</div>
+								</fieldset>									
+								</form>
+								<hr/>
+								<form th:action="@{/salvaCusto}" th:object="${finalCusto}" method="post" class="needs-validation was-validate">
+									<fieldset>
+										<legend>Custos da Entrega</legend>
+										<div class="form-group row">
+											<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+												<div th:each="detailedError : ${#fields.detailedErrors()}">
+													<span th:text="${detailedError.message}"></span>
+												</div>
+											</div>
+										</div>
+										<div class="container">
+											<div class="row">
+												<div class="col-2 form-group">
+													<label for="kmIni">Km Inicial:</label>
+													<input type="text" class="form-control" id="kmIni" th:field="*{kmIni}" placeholder="0,00" onKeyPress="return(moeda(this,'.',',',event))"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="kmFim">Km Final:</label>
+													<input type="text" class="form-control" id="kmFim" th:field="*{kmFim}" placeholder="0,00" onKeyPress="return(moeda(this,'.',',',event))"/>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-2 form-group">
+													<label for="custoVeiculo">Custo com Veículo:</label>
+													<input type="text" class="form-control" id="custoVeiculo" th:field="*{custoVeiculo}" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="custoPedagio">Custo com Pedágio:</label>
+													<input type="text" class="form-control" id="custoPedagio" th:field="*{custoPedagio}" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="custoMotorista">Custo com Motorista:</label>
+													<input type="text" class="form-control" id="custoMotorista" th:field="*{custoMotorista}" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="outrosCustos">Outros Custos:</label>
+													<input type="text" class="form-control" id="outrosCustos" th:field="*{outrosCusto}" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="totalCustos">Total dos Custos:</label>
+													<input type="text" class="form-control" id="custoTotal" th:field="*{custoTotal}" placeholder="0,00" readonly="readonly" onKeyPress="return(moeda(this,'.',',',event))"/>
+												</div>
+											</div>
+										</div>
+								</fieldset>
+								<hr/>
+								<fieldset id="step-4">
+									<legend>Descrição</legend>
+									<div class="container">
+										<div class="form-group">
+												<textarea class="form-control" id="descricao" rows="3" ></textarea>
+										</div>
+										<div class="form-group">
+											<button type="submit" class="btn btn-primary">Salvar</button>
+											<button type="submit" class="btn btn-secondary">
+												<a th:href="@{/entrega}">Cancelar</a>
+											</button>												
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>  
+</html>

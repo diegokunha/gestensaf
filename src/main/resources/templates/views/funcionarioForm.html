@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>Index Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Adicionando JQuery -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+
+<!-- Adicionando Javascript -->
+<script type="text/javascript" th:src="@{/js/pesquisaCep.js}"></script>
+
+
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+	<div class="wrapper">
+		<div class="page">
+			<div class="page-inner">
+				<header class="page-title-bar">
+					<div class="d-md-flex align-itens-md-start">
+						<h1 class="page-title mr-sm-auto">Novo Funcionário</h1>
+					</div>
+				</header>
+				<section id="base-style" class="card">
+					<div class="card-body">
+							<form th:object="${funcionario}" th:action="@{/salvaFuncionario}" method="post" class="needs-validation was-validate">
+								<fieldset>
+								<div class="form-group row">
+									<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+										<div th:each="detailedError : ${#fields.detailedErrors()}">
+											<span th:text="${detailedError.message}"></span>
+										</div>
+									</div>
+								</div>
+									<legend>Dados Gerais</legend>
+									<div class="container">
+										<div class="row">
+											<div class="col-6 form-group">
+												<label for="nome">Nome:</label>
+												<input type="text" class="form-control" id="nome" th:field="*{nome}" />
+											</div>
+											<div class="col-2 form-group">
+												<label for="dataNascimento">Data de Nascimento:</label>
+												<input type="date" class="form-control" id="dataNascimento" th:field="*{dataNasc}" />
+											</div>
+											<div class="col-2 form-group">
+												<label for="genero">Gênero:</label>
+												<select	class="custom-select" th:field="*{genero}">
+													<option value=""></option>
+													<option value="Feminino">Feminino</option>
+													<option value="Masculino">Masculino</option>
+													<option value="Outros">Outros</option>
+												</select>
+											</div>
+											<div class="col-2 form-group">
+												<label for="estadoCivil">Estado Civil:</label>
+												<select	class="custom-select" th:field="*{estadoCivil}">
+													<option value=""></option>
+													<option value="Solteiro(a)">Solteiro(a)</option>
+													<option value="Casado(a)">Casado(a)</option>
+													<option value="Divorciado(a)">Divorciado(a)</option>
+													<option value="Viúvo(a)">Viúvo(a)</option>
+													<option value="União Estável">União Estável</option>
+												</select>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-2 form-group">
+												<label for="telefone">Telefone:</label>
+												<input type="text" class="form-control" id="telefone" th:field="*{telefone}"/>
+											</div>
+											<div class="col-2 form-group">
+												<label for="celular">Celular:</label>
+												<input type="text" class="form-control" id="celular" th:field="*{celular}"/>
+											</div>
+											<div class="col-4 form-group">
+												<label for="email">E-mail:</label>
+												<input type="email" class="form-control" id="email" th:field="*{email}"/>
+											</div>
+											<div class="col-4 form-group">
+												<label for="funcao">Função:</label>
+												<input type="text" class="form-control" id="funcao" th:field="*{funcao}"/>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-2 form-group">
+												<label for="cep">CEP:</label>
+												<input type="text" class="form-control" id="cep" th:field="*{endereco.cep}" size="10" maxlength="9" />
+											</div>
+											<div class="col-5 form-group">
+												<label for="rua">Endereço:</label>
+												<input type="text" class="form-control" id="rua"  th:field="*{endereco.logradouro}" readonly="true"/>
+											</div>
+											<div class="col-1 form-group">
+												<label for="numero">Nº:</label>
+												<input type="text" class="form-control" id="numero" th:field="*{numero}"/>
+											</div>
+											<div class="col-4 form-group">
+												<label for="complemento">Complemento:</label>
+												<input type="text" class="form-control" id="complemento" th:field="*{complemento}"/>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-5 form-group">
+												<label for="bairro">Bairro:</label>
+												<input type="text" class="form-control" id="bairro"  th:field="*{endereco.bairro}" readonly="true"/>
+											</div>
+											<div class="col-5 form-group">
+												<label for="cidade">Municipio:</label>
+												<input type="text" class="form-control" id="cidade" th:field="*{endereco.municipio}" readonly="true"/>
+											</div>
+											<div class="col-2 form-group">
+												<label for="uf">UF:</label>
+												<input type="text" class="form-control" id="uf" th:field="*{endereco.uf.uf}" readonly="true"/>
+											</div>
+										</div>
+									</div>										
+								</fieldset>
+								<hr/>
+								<fieldset id="step-2">
+									<legend>Filiação</legend>
+									<div class="container">
+										<div class="row">
+											<div class="col-6 form-group">
+												<label for="mae">Mãe:</label>
+												<input type="text" class="form-control" id="mae" th:field="*{mae}" />
+											</div>
+											<div class="col-6 form-group">
+												<label for="pai">Pai:</label>
+												<input type="text" class="form-control" id="pai" th:field="*{pai}" />
+											</div>
+										</div>
+									</div>
+								</fieldset>
+								<hr/>
+								<fieldset id="step-3">
+									<legend>Documentação</legend>
+									<div class="container">
+										<div class="row">
+											<div class="col-3 form-group">
+												<label for="cpf">CPF:</label>
+												<input type="text" class="form-control" id="cpf" th:field="*{cpf}" />
+												<p th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="erro-msg">...</p>
+											</div>
+											<div class="col-3 form-group">
+												<label for="rg">RG:</label>
+												<input type="text" class="form-control" id="rd" th:field="*{rg}" />
+											</div>
+											<div class="col-3 form-group">
+												<label for="emissaRg">Emissão:</label>
+												<input type="date" class="form-control" id="emissaRg" th:field="*{emissaoRg}" />
+											</div>
+											<div class="col-3 form-group">
+												<label for="orgaoRg">Orção Emissor:</label>
+												<input type="text" class="form-control" id="orgaoRg" th:field="*{orgaoRg}" />
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-3 form-group">
+												<label for="cnh">Número CNH:</label>
+												<input type="text" class="form-control" id="cnh" th:field="*{cnh}" />
+											</div>
+											<div class="col-3 form-group">
+												<label for="registroCnh">Número Registro CNH:</label>
+												<input type="text" class="form-control" id="registroCnh" th:field="*{registroCnh}" />
+											</div>
+											<div class="col-3 form-group">
+												<label for="validadeCnh">Validade CNH:</label>
+												<input type="date" class="form-control" id="validadeCnh" th:field="*{validadeCnh}" />
+											</div>
+											<div class="col-3 form-group">
+												<label for="categoriaCnh">Categoria CNF:</label>
+												<input type="text" class="form-control" id="categoriaCnh" th:field="*{categoriaCnh}" />
+											</div>
+										</div>
+									</div>
+								</fieldset>
+								<hr/>
+								<fieldset id="step-4">
+									<legend>Observações</legend>
+									<div class="container">
+										<div class="form-group">
+												<textarea class="form-control" id="obs" rows="3" th:field="*{obs}"></textarea>
+										</div>
+										<div class="form-group">
+											<button type="submit" class="btn btn-primary">Salvar</button>
+											<button type="submit" class="btn btn-secondary">
+												<a th:href="@{/funcionario}">Cancelar</a>
+											</button>												
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</main>
+
+</body>
+</html>

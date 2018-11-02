@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>Index Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+		<div class="wrapper">
+			<div class="page">
+				<div class="page-inner">
+					<header class="page-title-bar">
+						<div class="d-md-flex align-itens-md-start">
+							<h1 class="page-title mr-sm-auto">Novo Veículo</h1>
+							<div class="mdl-list__item" th:if="${msg_resultado}">						 	
+							 	<p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}" >...</p>		
+							</div>			
+						</div>
+					</header>
+					<div class="page-section">
+						<section id="base-style" class="card">
+							<div class="card-body">
+								<form action="salvarVeiculo" method="post" class="needs-validation was-validate">
+									<fieldset>
+										<div class="container">
+											<div class="row">
+												<div class="col-2 form-group">
+													<label for="placa">*Placa:</label>
+													<input type="text" class="form-control" id="placa" name="placa" required="required"/>													
+												</div>
+												<div class="col-2 form-group">
+													<label for="marca">*Marca:</label>
+													<input type="text" class="form-control" id="marca" name="marca" required="required"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="modelo">*Modelo:</label>
+													<input type="text" class="form-control" id="modelo" name="modelo" required="required"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="km">KM:</label>
+													<input type="text" class="form-control" id="km" name="km" />
+												</div>
+												<div class="col-3 form-group">
+						                          <label class="d-block">Situação:</label>
+						                          <div class="custom-control custom-control-inline custom-radio">
+						                            <input type="radio" class="custom-control-input" name="situacao" id="rd1" value="true" />
+						                            <label class="custom-control-label" for="rd1">Ativo</label>
+						                          </div>
+						                          <div class="custom-control custom-control-inline custom-radio">
+						                            <input type="radio" class="custom-control-input" name="situacao" id="rd2" value="false"/>
+						                            <label class="custom-control-label" for="rd2">Inativo</label>
+						                          </div>
+						                        </div>
+											</div>
+											<div class="row">
+												<div class="col-3 form-group">
+													<label for="renavan">*Renavan:</label>
+													<input type="text" class="form-control" id="renavan" name="renavan" required="required"/>
+												</div>
+												<div class="col-3 form-group">
+													<label for="chassi">*Chassi:</label>
+													<input type="text" class="form-control" id="chassi" name="chassi" required="required"/>
+												</div>
+												<div class="col-1 form-group">
+													<label for="anoModelo">Ano Mod.:</label>
+													<input type="text" class="form-control" id="anoModelo" name="anoModelo"/>
+												</div>
+												<div class="col-1 form-group">
+													<label for="anoFabricao">Ano Fabr.:</label>
+													<input type="text" class="form-control" id="anoFabricao" name="anoFabricao"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="cor">Cor:</label>
+													<input type="text" class="form-control" id="cor" name="cor"/>
+												</div>
+												<div class="col-2 form-group">
+													<label for="tipoCombustivel">Tipo Combustível:</label>
+													<input type="text" class="form-control" id="tipoCombustivel"  name="tipoCombustivel"/>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+									<hr/>
+									<fieldset>
+										<legend>Observações</legend>
+										<div class="container">
+											<div class="form-group">
+													<textarea class="form-control" id="obs" rows="3" name="obs" ></textarea>
+											</div>
+											<div class="form-group">
+												<button type="submit" class="btn btn-primary">Salvar</button>
+												<button type="submit" class="btn btn-secondary">
+													<a th:href="@{/veiculo}">Cancelar</a>
+												</button>												
+											</div>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>		
+		</div>
+	</main>
+</body>
+</html>

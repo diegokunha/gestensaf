@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Adicionando JQuery -->
+<script th:src="@{/js/jquery-3.2.1.min.js}"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+
+<!-- Adicionando Javascript -->
+<script type="text/javascript" th:src="@{/js/novamanutencao.controller.js}"></script>
+
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+		<div class="wrapper">
+			<div class="page">
+				<div class="page-inner">
+					<header class="page-title-bar">
+						<div class="d-md-flex align-itens-md-start">
+							<h1 class="page-title mr-sm-auto">Nova Manutenção</h1>			
+						</div>
+					</header>
+					<div class="page-section">
+						<section id="base-style" class="card">
+							<div class="card-body">
+								<form th:object="${manutencao}" th:action="@{/salvaManutencao}" method="post" class="needs-validation was-validate">
+									<input type="hidden" th:field="*{idManutencao}"/>
+									<fieldset>
+										<div class="form-group row">
+											<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+												<div th:each="detailedError : ${#fields.detailedErrors()}">
+													<span th:text="${detailedError.message}"></span>
+												</div>
+											</div>
+										</div>
+										<div class="container">
+											<div class="row">
+												<div class="col-2 form-group" >
+													<label for="placa">Placa:</label>
+													<div class="input-group input-group-alt">
+														<div class="input-group mb-3">
+															<input type="text" class="form-control" id="placa" th:field="*{veiculo.placa}" required="required" readonly="readonly"/>
+															<span th:if="${#fields.hasErrors('veiculo.placa')}" th:errors="*{veiculo.placa}" class="label label-danger"></span>
+															<div class="input-group-append">
+																<button class="btn btn-dark" type="button" data-toggle="modal" data-target="#modalPlaca">
+																	<i class="fas fa-search"></i>
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-2 form-group">
+													<label for="dataManutencao">Data:</label>
+													<input type="date" class="form-control" id="dataManutencao" th:field="*{dataManutencao}" />
+												</div>
+												<div class="col-2 form-group">
+													<label for="km">KM:</label>
+													<input type="text" class="form-control" id="km" th:field="*{km}" />
+												</div>
+												<div class="col-2 form-group">
+													<label for="valor">Valor:</label>
+													<input type="text" class="form-control" id="valor" th:field="*{valor}" />
+												</div>
+											</div>
+										</div>
+									</fieldset>
+									<hr/>
+									<fieldset>
+										<div class="container">
+											<legend>Descrição:</legend>
+											<div class="form-group">
+													<textarea class="form-control" id="obs" rows="3" th:field="*{descricao}"></textarea>
+											</div>
+											<div class="form-group">
+												<button type="submit" class="btn btn-primary">Salvar</button>
+												<button type="submit" class="btn btn-secondary">
+													<a th:href="@{/manutencao}">Cancelar</a>
+												</button>												
+											</div>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>		
+		</div>
+		<!-- The Modal -->
+		  <div class="modal fade" id="modalPlaca">
+		    <div class="modal-dialog modal-sm">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h4 class="modal-title">Localizar Placa...</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body">
+		        	<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Placa</th>
+									<th style="width:100px; min-width:100px;">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody class="veiculos">
+
+							</tbody>
+						</table>
+					</div>
+		        </div>
+		        </div>
+		    </div>
+		  </div>
+	</main>
+</body>
+
+</html>

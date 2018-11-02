@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>GESTENSAF - Funcionários</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+		<div class="wrapper">
+			<div class="page">
+				<div class="page-inner">
+					<header class="page-title-bar">
+						<button type="button" class="btn btn-success btn-floated">
+							<a th:href="@{/novoFuncionario}"><span class="fa fa-plus"></span></a>
+						</button>
+						<div class="d-md-flex align-itens-md-start">
+							<h1 class="page-title mr-sm-auto">Funcionários</h1>			
+						</div>
+					</header>
+					<div class="page-section">
+						<section class="card card-fluid">
+							<div class="card-body">
+								<div class="form-group">
+									<div class="input-group input-group-alt">
+										<div class="input-group-prepend">
+											<select	class="custom-select">
+												<!-- 
+												<option selected>Filtrar por</option>
+												 -->
+												<option value="1">CPF</option>
+												<option value="2">Nome</option>
+											</select>
+										</div>
+										<div class="input-group mb-3">
+											<input type="text" class="form-control" placeholder="Selecione o parâmetro da pesquisa e digite aqui o valor a ser localicado..."/>
+											<div class="input-group-append">
+												<button class="btn btn-primary" type="button">Localizar</button>
+											</div>
+										</div>
+									</div>
+									<div class="table-responsive">
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th>CPF</th>
+													<th style="min-width:200px;">Nome</th>
+													<th>Data de Nascimento</th>
+													<th>Contato</th>
+													<th style="width:100px; min-width:100px;">&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="funcionario : ${funcionarios}">
+													<td th:text="${funcionario.cpf}" />
+													<td>
+														<a th:href="@{/editarFuncionario/{cpf}(cpf = ${funcionario.cpf})}">
+															<span th:text="${funcionario.nome}" ></span>
+														</a>
+													</td>
+													<td th:text="${#dates.format(funcionario.dataNasc, 'dd/MM/yyyy')}" />
+													<td th:text="${funcionario.celular}" />
+													
+													<td class="align-middle text-right">
+														<a th:href="@{/excluiFuncionario/{cpf}(cpf = ${funcionario.cpf})}" class="btn btn-sm btn-secondary">
+															<i class="far fa-trash-alt"></i>
+															<span class="sr-only">Remove</span>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+		
+</body>
+</html>

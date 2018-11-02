@@ -1,0 +1,31 @@
+<header th:fragment="header" class="app-header">
+	<div class="top-bar">
+		<div class="top-bar-brand">
+			<a th:href="@{/}">GESTENSAF</a>
+		</div>
+		<div class="top-bar-list">
+			<div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
+				<div class="dropdown">
+					<button class="btn-account d-none d-md-flex" type="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="user-avatar"></span> <span
+							class="account-summary pr-lg-4 d-none d-lg-block"> <span
+							class="account-name">Diego Kunha</span> <span
+							class="account-description">Desenvolvedor</span>
+						</span>
+					</button>
+					<div class="dropdown-arrow dropdown-arrow-left"></div>
+					<div class="dropdown-menu" x-placement="botton-start" style="position: absolute; will-change: top, left; top: 56px; left:0px;">
+						<h6 class="dropdown-header d-none d-md-block d-lg-none">Diego Kunha</h6>
+						<a class="dropdown-item" href="#">
+							<span class="dropdown-icon fas fa-user"></span>Perfil
+						</a>
+						<a class="dropdown-item" href="#">
+							<span class="dropdown-icon fas fa-sign-out-alt"></span>Sair
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
