@@ -3,7 +3,6 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="fragments/main_layout">
 <head>
-<title>GESTENSAF - Entregas</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <!-- Adicionando JQuery -->
@@ -28,11 +27,19 @@
 				<header class="page-title-bar">
 					<div class="d-md-flex align-itens-md-start">
 						<h1 class="page-title mr-sm-auto">Nova Entrega</h1>
+						
+						<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+						<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${message}">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>						 	
+						 	<span th:text="${#strings.isEmpty(message)} ? '' : ${message}" />		
+						</div>
 					</div>
 				</header>
 				<section id="base-style" class="card">
 					<div class="card-body">
 							<form th:object="${entrega}" th:action="@{/salvaEntrega}" method="post" class="needs-validation was-validate">
+								<input type="hidden" th:field="*{idEntrega}" />
+								<input type="hidden" th:field="*{status}"/>
 								<fieldset>
 								<div class="form-group row">
 									<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
@@ -56,7 +63,11 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-3 form-group" >
+											<div class="col-2 form-group">
+												<label for="km">KM:</label>
+												<input type="text" class="form-control" id="km" th:field="*{veiculo.km}" readonly="readonly"  />
+											</div>
+											<div class="col-2 form-group" >
 												<label for="cpf">CPF:</label>
 												<div class="input-group input-group-alt">
 													<div class="input-group mb-3">
@@ -69,13 +80,13 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-4 form-group">
+											<div class="col-3 form-group">
 												<label for="nome">Nome:</label>
 												<input type="text" class="form-control" id="nome" th:field="*{funcionario.nome}" readonly="readonly"  />
 											</div>
-											<div class="col-3 form-group">
+											<div class="col-2 form-group">
 												<label for="dataEntrega">Data da Entrega:</label>
-												<input type="date" class="form-control" id="dataEntrega" th:field="*{dataEntrega}" />
+												<input type="date" class="form-control flatpickr-input" id="dataEntrega" th:field="*{dataEntrega}" />
 											</div>
 											</div>
 										
@@ -132,9 +143,9 @@
 										</div>
 										<div class="form-group">
 											<button type="submit" class="btn btn-primary">Salvar</button>
-											<button type="submit" class="btn btn-secondary">
-												<a th:href="@{/entrega}">Cancelar</a>
-											</button>												
+											<a th:href="@{/entrega}">
+												<button type="button" class="btn btn-secondary">Cancelar</button>
+											</a>												
 										</div>
 									</div>
 								</fieldset>
@@ -161,6 +172,7 @@
 							<thead>
 								<tr>
 									<th>Placa</th>
+									<th>KM</th>
 									<th style="width:50px; min-width:50px;">&nbsp;</th>
 								</tr>
 							</thead>

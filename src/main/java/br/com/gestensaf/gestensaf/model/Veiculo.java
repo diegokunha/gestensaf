@@ -6,6 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name="Veiculo")
@@ -15,9 +20,11 @@ public class Veiculo implements Serializable {
 
 	@Id
 	@Column(name="placa")
+	@NotBlank(message = "A placa é um preenchimento obrigatório.")
 	private String placa;
 	
 	@Column(name="situacao")
+	@NotNull(message = "A situação é um preenchimento obrigatório.")
 	private boolean situacao; 
 	
 	@Column(name="status")
@@ -27,18 +34,24 @@ public class Veiculo implements Serializable {
 	private String obs;
 	
 	@Column(name="km")
+	@NotNull(message = "A quilometragem é um preenchimento obrigatório.")
+	@NumberFormat(pattern="0,00")	
 	private Double km;
 		
 	@Column(name="renavan")
+	@NotBlank(message="O renavan é um preenchimento obrigatório.")
 	private String renavan;
 	
 	@Column(name="chassi")
+	@NotBlank(message="O chassi é um preenchimento obrigatório.")
 	private String chassi;
 	
 	@Column(name="marca")
+	@NotBlank(message="A marca é um preenchimento obrigatório.")
 	private String marca;
 	
 	@Column(name="modelo")
+	@NotBlank(message="O modelo é um preenchimento obrigatório.")
 	private String modelo;
 	
 	@Column(name="anoFabricao")
@@ -53,6 +66,16 @@ public class Veiculo implements Serializable {
 	@Column(name="tipoCombustivel")
 	private String tipoCombustivel;
 
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Veiculo)) {
+			return false;
+		}else {
+			final Veiculo orther = (Veiculo) obj;
+			return this.getPlaca().equals(orther.getPlaca());			
+		}
+	}
+	
 	public String getPlaca() {
 		return placa;
 	}

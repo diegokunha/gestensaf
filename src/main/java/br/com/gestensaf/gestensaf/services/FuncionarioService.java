@@ -18,6 +18,10 @@ public class FuncionarioService {
 		return fr.findAll();
 	}
 	
+	public List<Funcionario> listaFuncionarioFiltro(String cpf, String nome){
+		return fr.listaFuncionarioFiltro(cpf, nome);
+	}
+	
 	public Funcionario buscaCpf(String cpf) {
 		return fr.findByCpf(cpf);
 	}

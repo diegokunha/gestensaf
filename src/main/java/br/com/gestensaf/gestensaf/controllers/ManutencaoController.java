@@ -5,7 +5,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.gestensaf.gestensaf.model.Manutencao;
 import br.com.gestensaf.gestensaf.services.ManutencaoService;
-import br.com.gestensaf.gestensaf.services.VeiculoService;
 
 @Controller
 public class ManutencaoController {
@@ -24,19 +22,6 @@ public class ManutencaoController {
 	/**INJETANDO O OBJETO ManutencaoService*/
 	@Autowired
 	private ManutencaoService ms;
-	
-		
-	/***
-	 * CHAMA A PÁGINA COM A LISTA DE MANUTENÇÕES CADASTRADAS NO SISTEMA
-	 * @param
-	 * @return
-	 */
-	@GetMapping("/manutencao")
-	public ModelAndView listaManutencao() {		
-		ModelAndView mv = new ModelAndView("views/listaManutencao");
-		mv.addObject("manutencoes", ms.listaManutencao());
-		return mv;
-	}
 
 	/***
 	 * CHAMA A PÁGINA PARA CADASTRAR UMA NOVA MANUTENÇÃO NO SISTEMA
@@ -45,8 +30,20 @@ public class ManutencaoController {
 	 */
 	@GetMapping(value="/novaManutencao")
 	public ModelAndView novaManutencao(Manutencao manutencao) {
-		ModelAndView mv = new ModelAndView("views/manutencaoForm");
-		mv.addObject("manutencao", manutencao);		
+		ModelAndView mv = new ModelAndView("views/manutencao/manutencaoForm");
+		mv.addObject("manutencao", manutencao);
+		return mv;
+	}
+		
+	/***
+	 * CHAMA A PÁGINA COM A LISTA DE MANUTENÇÕES CADASTRADAS NO SISTEMA
+	 * @param
+	 * @return
+	 */
+	@GetMapping("/manutencao")
+	public ModelAndView listaManutencao() {		
+		ModelAndView mv = new ModelAndView("views/manutencao/listaManutencao");
+		mv.addObject("manutencoes", ms.listaManutencao());
 		return mv;
 	}
 	
@@ -77,8 +74,10 @@ public class ManutencaoController {
 	 * @return
 	 */
 	@GetMapping("/excluiManutencao/{id}")
-	public ModelAndView excluiManutencao(@PathVariable("id") long idManutencao) {
+	public ModelAndView excluiManutencao(@PathVariable("id") long idManutencao, RedirectAttributes att) {
+		
 		ms.excluirManutencao(idManutencao);
+		att.addFlashAttribute("message", "Manutenção removida com sucesso!!");
 		
 		return listaManutencao();
 	}
@@ -93,12 +92,21 @@ public class ManutencaoController {
 	@PostMapping("/salvaManutencao")
 	public ModelAndView salvaManutencao(@Valid Manutencao manutencao, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			
-			return novaManutencao(manutencao);
+			attributes.addFlashAttribute("message", "Dados incorretos...");
+			return listaManutencao();
 		}
 		
+		/*
+		if(manutencao.getKm() > manutencao.getVeiculo().getKm()) {
+			manutencao.getVeiculo().setKm(manutencao.getKm());
+		}else {
+			attributes.addFlashAttribute("message", "Quilometragem menor que a atual. Favor informar o valor correto.");
+			return novaManutencao(manutencao);
+		}
+		*/
+		
 		ms.salvaManutencao(manutencao);
-		attributes.addAttribute("message", "Manutenção salva com sucesso!!");
+		attributes.addAttribute("message", "Manutenção salva com sucesso.");
 		
 		return listaManutencao();
 	}

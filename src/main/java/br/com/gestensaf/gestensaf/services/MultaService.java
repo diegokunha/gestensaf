@@ -14,12 +14,12 @@ public class MultaService {
 	@Autowired
 	private MultaRepository mr;
 	
-	public void salvaMulta(Multa multa) {
-		mr.saveAndFlush(multa);
+	public Multa salvaMulta(Multa multa) {
+		return mr.saveAndFlush(multa);
 	}
 	
-	public void excluiMulta(String id) {
-		mr.delete(id);
+	public void excluiMulta(String codMulta) {
+		mr.delete(codMulta);
 	}
 	
 	public List<Multa> listaMulta(){
@@ -27,7 +27,7 @@ public class MultaService {
 	}
 	
 	public Multa buscaMulta(String codMulta) {
-		return mr.findOne(codMulta);
+		return mr.findOne(codMulta);				
 	}
 	
 }

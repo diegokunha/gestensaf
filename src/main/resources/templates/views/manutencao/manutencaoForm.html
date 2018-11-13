@@ -22,14 +22,15 @@
 				<div class="page-inner">
 					<header class="page-title-bar">
 						<div class="d-md-flex align-itens-md-start">
-							<h1 class="page-title mr-sm-auto">Nova Manutenção</h1>			
+							<h1 class="page-title mr-sm-auto">Nova Manutenção</h1>	
+									
 						</div>
 					</header>
 					<div class="page-section">
 						<section id="base-style" class="card">
 							<div class="card-body">
 								<form th:object="${manutencao}" th:action="@{/salvaManutencao}" method="post" class="needs-validation was-validate">
-									<input type="hidden" th:field="*{idManutencao}"/>
+									<input type="hidden" name="idManutencao"/>
 									<fieldset>
 										<div class="form-group row">
 											<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
@@ -43,9 +44,9 @@
 												<div class="col-2 form-group" >
 													<label for="placa">Placa:</label>
 													<div class="input-group input-group-alt">
-														<div class="input-group mb-3">
+														<div class="input-group mb-3" th:classappend="${#fields.hasErrors('veiculo.placa')}? 'has-error'">
 															<input type="text" class="form-control" id="placa" th:field="*{veiculo.placa}" required="required" readonly="readonly"/>
-															<span th:if="${#fields.hasErrors('veiculo.placa')}" th:errors="*{veiculo.placa}" class="label label-danger"></span>
+															
 															<div class="input-group-append">
 																<button class="btn btn-dark" type="button" data-toggle="modal" data-target="#modalPlaca">
 																	<i class="fas fa-search"></i>
@@ -78,9 +79,9 @@
 											</div>
 											<div class="form-group">
 												<button type="submit" class="btn btn-primary">Salvar</button>
-												<button type="submit" class="btn btn-secondary">
-													<a th:href="@{/manutencao}">Cancelar</a>
-												</button>												
+												<a th:href="@{/manutencao}">
+													<button type="button" class="btn btn-secondary">Cancelar</button>
+												</a>												
 											</div>
 										</div>
 									</fieldset>

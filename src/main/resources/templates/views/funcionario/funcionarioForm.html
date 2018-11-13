@@ -3,8 +3,11 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="fragments/main_layout">
 <head>
-<title>Index Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
 
 <!-- Adicionando JQuery -->
 <script th:src="@{/js/jquery-3.2.1.min.js}"
@@ -29,24 +32,41 @@
 				</header>
 				<section id="base-style" class="card">
 					<div class="card-body">
-							<form th:object="${funcionario}" th:action="@{/salvaFuncionario}" method="post" class="needs-validation was-validate">
+							<form id="formFuncionario" th:object="${funcionario}" th:action="@{/salvaFuncionario}" method="post" class="needs-validation was-validate">
 								<fieldset>
-								<div class="form-group row">
-									<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-										<div th:each="detailedError : ${#fields.detailedErrors()}">
-											<span th:text="${detailedError.message}"></span>
+									<div class="form-group row">
+										<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+											<div th:each="detailedError : ${#fields.detailedErrors()}">
+												<span th:text="${detailedError.message}"></span>
+											</div>
 										</div>
 									</div>
-								</div>
-									<legend>Dados Gerais</legend>
-									<div class="container">
-										<div class="row">
-											<div class="col-6 form-group">
-												<label for="nome">Nome:</label>
-												<input type="text" class="form-control" id="nome" th:field="*{nome}" />
+									<div class="row">
+										<div class="col-md-4">
+											<legend>Dados Gerais</legend>
+										</div>
+										<div class="col-md-4 offset-md-4">
+											<label class="d-block"><b>Situação:  </b>
+					                          <div class="custom-control custom-control-inline custom-radio">
+					                            <input type="radio" class="custom-control-input" th:field="*{situacao}" id="rd1" value="true" />
+					                            <label class="custom-control-label" for="rd1">Ativo</label>
+					                          </div>
+					                          <div class="custom-control custom-control-inline custom-radio">
+					                            <input type="radio" class="custom-control-input" th:field="*{situacao}" id="rd2" value="false"/>
+					                            <label class="custom-control-label" for="rd2">Inativo</label>
+					                          </div>
+					                        </label>
+					                        </div>
+					                        
+										</div>
+									<div class="form-group container">
+										<div class="form-group row">
+											<div class="col-6 form-group" th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+												<label for="nome"><b>Nome:</b></label>
+												<input type="text" class="form-control" id="nome" th:field="*{nome}"/>
 											</div>
 											<div class="col-2 form-group">
-												<label for="dataNascimento">Data de Nascimento:</label>
+												<label for="dataNascimento"><b>Data de Nascimento:</b></label>
 												<input type="date" class="form-control" id="dataNascimento" th:field="*{dataNasc}" />
 											</div>
 											<div class="col-2 form-group">
@@ -76,16 +96,16 @@
 												<input type="text" class="form-control" id="telefone" th:field="*{telefone}"/>
 											</div>
 											<div class="col-2 form-group">
-												<label for="celular">Celular:</label>
-												<input type="text" class="form-control" id="celular" th:field="*{celular}"/>
+												<label for="celular"><b>Celular:</b></label>
+												<input type="text" class="form-control" id="celular" th:field="*{celular}" />
 											</div>
 											<div class="col-4 form-group">
 												<label for="email">E-mail:</label>
 												<input type="email" class="form-control" id="email" th:field="*{email}"/>
 											</div>
 											<div class="col-4 form-group">
-												<label for="funcao">Função:</label>
-												<input type="text" class="form-control" id="funcao" th:field="*{funcao}"/>
+												<label for="funcao"><b>Função:</b></label>
+												<input type="text" class="form-control" id="funcao" th:field="*{funcao}" />
 											</div>
 										</div>
 										<div class="row">
@@ -144,9 +164,8 @@
 									<div class="container">
 										<div class="row">
 											<div class="col-3 form-group">
-												<label for="cpf">CPF:</label>
+												<label for="cpf"><b>CPF:</b></label>
 												<input type="text" class="form-control" id="cpf" th:field="*{cpf}" />
-												<p th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="erro-msg">...</p>
 											</div>
 											<div class="col-3 form-group">
 												<label for="rg">RG:</label>
@@ -182,6 +201,27 @@
 									</div>
 								</fieldset>
 								<hr/>
+								<fieldset>
+									<legend>Acesso ao sistema</legend>
+									<div class="form-group container">
+										<div class="row">
+										    <div class="col-3 form-group">
+												<label for="login">Usuário:</label>
+												<input type="text" class="form-control" id="login" th:field="*{login}" />
+											</div>
+											<div class="col-3 form-group">
+												<label for="password">Senha:</label>
+												<input type="password" class="form-control" id="password" th:field="*{senha}" required="true" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"/>
+											</div>
+											<div class="col-3 form-group">
+												<label for="senhaConf">Confirmar Senha:</label>
+												<input type="password" class="form-control" id="confirm_password" th:field="*{senha}" required="true" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"/>
+											</div>
+											<span id="validaSenha" style="color= red;"></span>
+										 </div>
+									</div>
+								</fieldset>
+								<hr />
 								<fieldset id="step-4">
 									<legend>Observações</legend>
 									<div class="container">
@@ -190,9 +230,9 @@
 										</div>
 										<div class="form-group">
 											<button type="submit" class="btn btn-primary">Salvar</button>
-											<button type="submit" class="btn btn-secondary">
-												<a th:href="@{/funcionario}">Cancelar</a>
-											</button>												
+											<a th:href="@{/funcionario}">
+												<button type="button" class="btn btn-secondary">Cancelar</button>
+											</a>												
 										</div>
 									</div>
 								</fieldset>
@@ -202,6 +242,24 @@
 				</div>
 			</div>
 		</div>
+
+		<script>
+			var password = document.getElementById("password")
+			, confirm_password = document.getElementById("confirm_password");
+			
+			function validatePassword(){
+			if(password.value != confirm_password.value) {
+			  confirm_password.setCustomValidity("Senhas diferentes!");
+			} else {
+			  confirm_password.setCustomValidity('');
+			}
+			}
+			
+			password.onchange = validatePassword;
+			confirm_password.onkeyup = validatePassword;
+		</script>
+
+
 	</main>
 
 </body>

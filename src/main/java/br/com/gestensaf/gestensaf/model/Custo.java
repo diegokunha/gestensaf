@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.NumberFormat;
 
 @Entity
@@ -26,10 +29,12 @@ public class Custo implements Serializable {
 	private long idCusto;
 	
 	@Column(name="KMIni")
-	private String kmIni;
+	@NumberFormat(pattern="0,00")
+	private Double kmIni;
 	
-	@Column(name="KMFim")	
-	private String kmFim;
+	@Column(name="KMFim")
+	@NumberFormat(pattern="0,00")
+	private Double kmFim;
 	
 	@Column(name="descricao")
 	private String descricao;
@@ -54,7 +59,8 @@ public class Custo implements Serializable {
 	@NumberFormat(pattern="0,00")
 	private Double custoTotal;
 		
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@JoinColumn(name="Entrega_IdEntrega", foreignKey=@ForeignKey(name="CUSTO_ENTREGA_IDENTREGA_FK"))
 	private Entrega entrega;
 
@@ -66,19 +72,19 @@ public class Custo implements Serializable {
 		this.idCusto = idCusto;
 	}
 
-	public String getKmIni() {
+	public Double getKmIni() {
 		return kmIni;
 	}
 
-	public void setKmIni(String kmIni) {
+	public void setKmIni(Double kmIni) {
 		this.kmIni = kmIni;
 	}
 
-	public String getKmFim() {
+	public Double getKmFim() {
 		return kmFim;
 	}
 
-	public void setKmFim(String kmFim) {
+	public void setKmFim(Double kmFim) {
 		this.kmFim = kmFim;
 	}
 

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>GESTENSAF - Veículos</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+		<div class="wrapper">
+			<div class="page">
+				<div class="page-inner">
+					<header class="page-title-bar">
+						<a th:href="@{/novaMulta}" sytle="text-decoration:none;" title="Novo">
+							<button type="button" class="btn btn-success btn-floated">
+								<span class="fa fa-plus"></span>								
+							</button>
+						</a>
+						<div class="d-md-flex align-itens-md-start">
+							<h1 class="page-title mr-sm-auto">Multas</h1>
+							
+							<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+							<div th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">	
+								<div class="panel-heading">						 	
+								 	<span th:text="${#strings.isEmpty(message)} ? '' : ${message}"> </span>		
+								</div>
+							</div>			
+						</div>
+					</header>
+					<div class="page-section">
+						<section class="card card-fluid">
+							<div class="card-body">
+								<div class="form-group">
+									<div id="accordion" class="card-expansion">
+										<header class="card-header border-0" id="headingOne">
+										    <button class="btn btn-reset" data-toggle="collapse" data-target="#collapseOne">
+										    	<span class="collapse-indicator mr-2">
+										      		<i class="fa fa-fw fa-caret-right"></i>
+										      	</span>
+											    <a class="collapsed card-link" data-toggle="collapse" href="#collapseOne">
+											    	<span>Filtro</span>
+											    </a>
+								        	</button>
+									    </header>
+										<div id="collapseOne" class="collapse" data-parent="#accordion" aria-lalledby="headingOne">
+											<div class="card">
+												<div class="card-body pt-0" style="margin-top: 20px;">
+											    	<form method="get" role="search">
+														<fieldset>
+															<div class="row">
+																	<div class="col-2">
+																		<label for="dataIni">Data Inicial:</label>
+																		<input type="date" id="dataIni" class="form-control"/>
+																	</div>
+																	<div class="col-2">
+																		<label for="dataFim">Data Final:</label>
+																		<input type="date" id="dataFim" class="form-control" />
+																	</div>
+																	<div class="col-3">
+																		<label for="dataIni">Filtro:</label>																	
+																		<div class="input-group mb-3">
+																			<input type="text" class="form-control"/>
+																			<div class="input-group-append">
+																				<button class="btn btn-primary" type="submit">
+																					<i class="fas fa-search"></i>
+																				</button>
+																			</div>																		
+																		</div>														
+																	</div>
+																</div>
+														</fieldset>
+													</form>
+											    </div>
+										    </div>
+										</div>
+									</div>
+									<div class="table-responsive">
+										<table class="table table-hover">
+											<thead class="thead-dark">
+												<tr>
+													<th>Auto Infração</th>
+													<th>Placa</th>
+													<th>Motorista</th>
+													<th>Local</th>
+													<th>Data</th>
+													<th>Valor</th>
+													<th>Status</th>
+													<th style="width:140px; min-width:140px;">&nbsp;</th>													
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="multa : ${multas}">
+													<td><span th:text="${multa.codMulta}"></span></td>
+													<td><span th:text="${multa.veiculo.placa}"></span></td>
+													<td><span th:text="${multa.funcionario.nome}"></span></td>
+													<td><span th:text="${multa.endereco.municipio}"></span></td>
+													<td><span th:text="${#dates.format(multa.dataMulta, 'dd/MM/yyyy')}"></span></td>
+													<td><span th:text="${multa.valor}"></span></td>
+													<td th:switch="${multa.status}">
+														<span th:case="true">PAGO</span>
+														<span th:case="false">A PAGAR</span>
+													</td>
+													<td class="align-middle text-right">
+														<a class="btn btn-sm btn-secondary" th:href="@{/editaMulta/{codMulta}(codMulta = ${multa.codMulta})}">
+															<i class="fas fa-pen" title="Editar"></i>
+															<span class="sr-only">Editar</span>
+														</a>
+														<a class="btn btn-sm btn-secondary" href="#" title="Finalizar">
+															<i class="fas fa-check"></i>
+															<span class="sr-only">Finalizar</span>
+														</a>
+														<a class="btn btn-sm btn-secondary" th:href="@{/excluiMulta/{codMulta}(codMulta = ${multa.codMulta})}">
+															<i class="far fa-trash-alt" title="Excluir"></i>
+															<span class="sr-only">Remove</span>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<ul></ul>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

@@ -22,7 +22,7 @@ public class MultaController {
 	
 	@GetMapping("/multa")
 	public ModelAndView listaMulta() {
-		ModelAndView mv = new ModelAndView("views/listaMulta");
+		ModelAndView mv = new ModelAndView("views/multa/listaMulta");
 		mv.addObject("multas", ms.listaMulta());
 		
 		return mv;
@@ -30,19 +30,19 @@ public class MultaController {
 	
 	@GetMapping("/novaMulta")
 	public ModelAndView novaMulta(Multa multa) {
-		ModelAndView mv = new ModelAndView("views/multaForm");
+		ModelAndView mv = new ModelAndView("views/multa/multaForm");
 		mv.addObject("multa", multa);
 		
 		return mv;
 	}
 	
-	@GetMapping("/editaMulta/{id}")
-	public ModelAndView editaMulta(@PathVariable ("id") String codMulta) {
+	@GetMapping("/editaMulta/{codMulta}")
+	public ModelAndView editaMulta(@PathVariable ("codMulta") String codMulta) {
 		return novaMulta(ms.buscaMulta(codMulta));
 	}
 	
-	@GetMapping("/excluiMulta/{id}")
-	public ModelAndView excluiMulta(@PathVariable("id") String codMulta) {
+	@GetMapping("/excluiMulta/{codMulta}")
+	public ModelAndView excluiMulta(@PathVariable("codMulta") String codMulta) {
 		ms.excluiMulta(codMulta);
 		
 		return listaMulta();
@@ -55,7 +55,7 @@ public class MultaController {
 			return novaMulta(multa);
 		}
 		
-		multa.setStatus(true);
+		multa.setStatus(false);
 		ms.salvaMulta(multa);
 		att.addFlashAttribute("message", "Multa salva com sucesso!!");
 		

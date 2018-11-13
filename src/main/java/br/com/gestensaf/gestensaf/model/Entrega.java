@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +15,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name="Entrega")
@@ -40,12 +47,15 @@ public class Entrega implements Serializable {
 	@Column(name="dataEntrega")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message="A data da entrega é uma informação obrigatória a ser preenchida.")
 	private Date dataEntrega;
 
 	@Column(name="status")
 	private String status;
 	
 	@Column(name="valor")
+	@NumberFormat(pattern="0,00")
+	@NotNull(message="O valor é uma informação obrigatória")
 	private Double valor;
 	
 	@Column(name="contato")
@@ -59,7 +69,8 @@ public class Entrega implements Serializable {
 	@JoinColumn(name="Funcionario_Cpf", foreignKey=@ForeignKey(name="ENTREGA_FUNCIONARIO_CPF_FK"))
 	private Funcionario funcionario;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@JoinColumn(name="Veiculo_Placa", foreignKey=@ForeignKey(name="ENTREGA_VEICULO_PLACA_FK"))
 	private Veiculo veiculo;
 

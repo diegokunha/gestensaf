@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" th:src="@{/js/entregas.js}"></script>
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+	<div class="wrapper">
+		<div class="page">
+			<div class="page-inner">
+				<header class="page-title-bar">
+					<a th:href="@{/novaEntrega}">
+						<button type="button" class="btn btn-success btn-floated"
+							title="Novo">
+							<span class="fa fa-plus"></span>
+						</button>
+					</a>
+					<div class="d-md-flex align-itens-md-start">
+						<h1 class="page-title mr-sm-auto">Entregas</h1>
+
+						<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+						<div class="alert alert-success alert-dismissible fade show"
+							role="alert" th:if="${message}">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-hidden="true">&times;</button>
+							<span th:text="${#strings.isEmpty(message)} ? '' : ${message}" />
+						</div>
+					</div>
+				</header>
+				<div class="page-section">
+					<section class="card card-fluid">
+						<div class="card-body">
+							<div class="form-group"
+								th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+								<div id="accordion" class="card-expansion">
+									<header class="card-header border-0" id="headingOne">
+										<div class="row justify-content-between">
+    										<div class="col-4">
+												<button class="btn btn-reset" data-toggle="collapse"
+													data-target="#collapseOne">
+													<span class="collapse-indicator mr-2"> <i
+														class="fa fa-fw fa-caret-right"></i>
+													</span> <a class="collapsed card-link" data-toggle="collapse"
+														href="#collapseOne"> <span>Filtro</span>
+													</a>
+												</button>
+											</div>
+											<div class="col-4">
+												<a>
+													<button type="button" class="btn btn-secondary" style="float: right;">
+														<i class="fas fa-print"></i> 
+														<span>Imprimir</span>
+													</button>												
+												</a>
+											</div>
+										</div>
+									</header>
+									<div id="collapseOne" class="collapse" data-parent="#accordion"
+										aria-lalledby="headingOne">
+										<div class="card">
+											<div class="card-body pt-0" style="margin-top: 20px;">
+												<form method="get" role="search">
+													<fieldset>
+														<div class="row">
+															<div class="col-2">
+																<label for="dataIni">Data Inicial:</label> <input
+																	type="date" id="dataIni" class="form-control" />
+															</div>
+															<div class="col-2">
+																<label for="dataFim">Data Final:</label> <input
+																	type="date" id="dataFim" class="form-control" />
+															</div>
+															<div class="col-3">
+																<label for="dataIni">Placa:</label>
+																<div class="input-group mb-3">
+																	<input type="text" id="filtro" class="form-control" />
+																	<div class="input-group-append">
+																		<div id="btnFiltrar" class="btn btn-primary">
+																			<i class="fas fa-search"></i>
+																		</div>
+																	</div>
+																</div>
+															</div>															
+														</div>
+														<div class="row">
+															<span id="valida" style="color: red;"/>
+														</div>
+													</fieldset>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="table-responsive">
+									<table class="table table-hover dataTable no-footer"
+										id="tabelaEntrega" aria-describedby="tabelaEntrega_info"
+										role="grid">
+										<thead class="thead-dark">
+											<tr>
+												<th style="width: 50px; min-width: 50px;">
+													<input type="checkbox" id="checkTodos"/>
+												</th>
+												<th>Entrega</th>
+												<th>Status</th>
+												<th>Placa</th>
+												<th style="min-width: 200px;">Motorista</th>
+												<th>Local</th>
+												<th>Data</th>
+												<th>Valor</th>
+												<th style="width: 160px; min-width: 160px;">&nbsp;</th>
+											</tr>
+										</thead>
+										
+											<tbody>
+												<tr th:each="entrega : ${entregas}">
+													<td>
+														<input type="checkbox" value="${entrega.idEntrega}"/>
+													</td>
+													<td><span th:text="${entrega.idEntrega}"></span></td>
+													<td><span th:text="${entrega.status}"></span></td>
+													<td><span th:text="${entrega.veiculo.placa}"></span></td>
+													<td><span th:text="${entrega.funcionario.nome}"></span></td>
+													<td><span th:text="${entrega.endereco.municipio}"></span></td>
+													<td><span
+														th:text="${#dates.format(entrega.dataEntrega, 'dd/MM/yyyy')}"></span></td>
+													<td><span
+														th:text="${#numbers.formatDecimal(entrega.valor, 0, 'COMMA', 2, 'POINT')}"></span></td>
+													<td class="align-middle text-right"><a
+														th:href="@{/editaEntrega/{id}(id = ${entrega.idEntrega})}"
+														class="btn btn-sm btn-secondary" title="Imprimir"> <i
+															class="fas fa-pen" title="Editar"></i> <span
+															class="sr-only">Editar</span>
+													</a> <a class="btn btn-sm btn-secondary"
+														th:href="@{/finalizaEntregaForm/{id}(id = ${entrega.idEntrega})}"
+														title="Finalizar"> <i class="fas fa-check"></i> <span
+															class="sr-only">Finalizar</span>
+													</a> <a class="btn btn-sm btn-secondary"
+														th:href="@{/excluiEntrega/{id}(id = ${entrega.idEntrega})}"
+														title="Excluir"> <i class="far fa-trash-alt"></i> <span
+															class="sr-only">Cancelar</span>
+													</a></td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		$("#checkTodos").click(function(){
+		    $('input:checkbox').not(this).prop('checked', this.checked);
+		});
+	</script>
+	
+	</main>
+	
+</body>
+</html>

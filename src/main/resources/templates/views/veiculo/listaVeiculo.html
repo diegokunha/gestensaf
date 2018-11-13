@@ -13,16 +13,17 @@
 			<div class="page">
 				<div class="page-inner">
 					<header class="page-title-bar">
-						<button type="button" class="btn btn-success btn-floated">
-							<a th:href="@{/novaMulta}" sytle="text-decoration:none;">
-								<span class="fa fa-plus"></span>
-							</a>
-						</button>
+						<a th:href="@{/novoVeiculo}" sytle="text-decoration:none;">
+							<button type="button" class="btn btn-success btn-floated">
+								<span class="fa fa-plus"></span>								
+							</button>
+						</a>
 						<div class="d-md-flex align-itens-md-start">
-							<h1 class="page-title mr-sm-auto">Multas</h1>
+							<h1 class="page-title mr-sm-auto">Veículos</h1>
 							
 							<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
-							<div class="mdl-list__item" th:if="${msg_resultado}">						 	
+							<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${msg_resultado}">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>						 	
 							 	<p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}" >...</p>		
 							</div>			
 						</div>
@@ -41,36 +42,32 @@
 									</div>
 									<div class="table-responsive">
 										<table class="table table-hover">
-											<thead>
+											<thead class="thead-dark">
 												<tr>
-													<th>Auto Infração</th>
 													<th>Placa</th>
-													<th>Motorista</th>
-													<th>Local</th>
-													<th>Data</th>
-													<th>Valor</th>
-													<th>Status</th>													
+													<th>Marca</th>
+													<th>Modelo</th>
+													<th>KM</th>
+													<th>Status</th>
+													<th>Situação</th>
+													<th style="width:50px; min-width:50px;">&nbsp;</th>													
 												</tr>
 											</thead>
 											<tbody>
-												<tr th:each="multa : ${multa}">
+												<tr th:each="veiculo : ${veiculo}">
+													<td><span th:text="${veiculo.placa}"></span></td>
+													<td><span th:text="${veiculo.marca}"></span></td>
+													<td><span th:text="${veiculo.modelo}"></span></td>
+													<td><span th:text="${veiculo.km}"></span></td>
+													<td><span th:text="${veiculo.status}"></span></td>
+													<td th:switch="${veiculo.situacao}">
+														<span th:case="true"><i class="fas fa-check-circle" style="color: green;" title="Ativo"></i></span>
+														<span th:case="false"><i class="fas fa-times-circle" style="color: red;" title="Inativo"></i></span>
+													</td>
 													<td>
-														<a th:href="@{/editaMulta/{id}(codMulta = ${multa.codMulta})}">
-															<span th:text="${multa.codMulta}"></span>
-														</a>
-													</td>
-													<td><span th:text="${multa.veiculo.placa}"></span></td>
-													<td><span th:text="${multa.funcionario.nome}"></span></td>
-													<td><span th:text="${multa.endereco.municipio}"></span></td>
-													<td><span th:text="$${#dates.format(multa.dataMulta, 'dd/MM/yyyy')}"></span></td>
-													<td><span th:text="${multa.valor}"></span></td>
-													<td th:switch="${multa.status}">
-														<span th:case="true">PAGO</span>
-														<span th:case="false">A PAGAR</span>
-													</td>
-													<td class="align-middle text-right">
-														<a class="btn btn-sm btn-secondary" th:href="@{/excluiMulta/{id}(codMulta = ${multa.codMulta})}">
-															<i class="far fa-trash-alt"></i><span class="sr-only">Remove</span>
+														<a th:href="@{/editaVeiculo/{placa}(placa = ${veiculo.placa})}" class="btn btn-sm btn-secondary">
+															<i class="fas fa-pen" title="Editar"></i>
+															<span class="sr-only">Editar</span>
 														</a>
 													</td>
 												</tr>

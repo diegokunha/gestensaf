@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="conformidadeEntrega" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="022c02ff-e38e-40a4-9a97-d028c27a03b0">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JDBC Data Adapter "/>
+	<parameter name="Id_Entrega" class="java.lang.Long"/>
+	<queryString language="SQL">
+		<![CDATA[select		e.id_entrega
+				,e.veiculo_placa
+				,f.nome
+				,f.cpf
+				,e.descricao
+				,valor		
+				,e.data_entrega		
+from		gestensaf.entrega e inner join funcionario f
+					on f.cpf = e.funcionario_cpf]]>
+	</queryString>
+	<field name="id_entrega" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id_entrega"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrega"/>
+	</field>
+	<field name="veiculo_placa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="veiculo_placa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrega"/>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="funcionario"/>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="funcionario"/>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrega"/>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrega"/>
+	</field>
+	<field name="data_entrega" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="data_entrega"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="entrega"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="500" splitType="Stretch">
+			<rectangle>
+				<reportElement x="401" y="64" width="151" height="89" uuid="0f305c71-e4fb-4059-8bff-89f76df88b23"/>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="250" width="550" height="1" uuid="70c15492-02fd-4acd-81c9-186599ceebc5"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="2" y="39" width="551" height="15" uuid="190de757-ee47-4167-aa72-14e845799a09"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Declaro que recebi os volumes informados neste documento em perfeito estado e dou por cumprido o presente contrato.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="25" width="550" height="1" uuid="39b2e0cf-8ef5-43d6-855a-969465456d18"/>
+			</line>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="1" y="0" width="199" height="25" uuid="b2abff18-2922-4495-b55e-f9891d8230b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DECLARAÇÃO DE ENTREGA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy - HH:mm:ss">
+				<reportElement x="382" y="1" width="171" height="10" uuid="af2a2476-7780-4d1b-a0c4-1aa33aa557c6"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="75" width="100" height="15" uuid="b70778d5-2fbb-4f07-bddd-57ff9836fa3a"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_entrega}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="75" width="50" height="15" uuid="acfdc1a7-9004-4106-be30-2510892110f8"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entrega:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="90" width="100" height="15" uuid="85532707-1156-4dd9-9b1a-d453034b7b04"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{veiculo_placa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="90" width="50" height="15" uuid="5bd992c4-17fe-4b6d-a2d6-df4bb0da2d44"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="105" width="100" height="15" uuid="85aa1f69-e788-4d37-a065-feab3ea9d6dc"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="105" width="50" height="15" uuid="bf8a4c8e-7876-4caa-a3cc-d3cf020b46c3"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="120" width="330" height="25" uuid="9a680496-c522-4b42-bb10-2e1af6525eb5"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="120" width="49" height="15" uuid="41f2466a-3d3a-4720-b6bf-d1d004727ecb"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Volumes:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="408" y="86" width="10" height="10" uuid="b5954af3-1f97-46f3-9fe9-60f020e672ea"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="420" y="84" width="125" height="15" uuid="2e98c536-293d-4d6e-9f3f-7d74d0de364d"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Entrega realizada.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="408" y="103" width="10" height="10" uuid="f84aeafb-551d-4e71-a6f3-792aaf1f3e5f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="420" y="100" width="125" height="15" uuid="242451e7-63e1-4084-89d0-2bbd99c748b6"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Entrega cancelada.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="408" y="119" width="10" height="10" uuid="374b9d44-bc4a-4960-8045-6605995bcb8e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="420" y="117" width="125" height="15" uuid="de713017-da4b-4963-8b19-6369fa8eb21a"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Mercadoria recusada.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="134" width="125" height="15" uuid="dcbe0e1e-b8e6-45a2-9c48-c66c5363727c"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Mercadoria avariada.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="408" y="136" width="10" height="10" uuid="f951d7ed-be5c-403f-9896-a89f9aa254e9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="402" y="65" width="150" height="15" uuid="e23cf731-e7df-4f0a-a4b6-b52a6d2cde66"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Situação da Entrega]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="168" width="551" height="60" uuid="20a89159-af0c-43a2-80d6-bbdcbc8dee7e"/>
+			</rectangle>
+			<line>
+				<reportElement x="1" y="196" width="549" height="1" uuid="1aa80605-04b7-4c97-b769-65c204291653"/>
+			</line>
+			<staticText>
+				<reportElement x="3" y="169" width="28" height="10" uuid="aae526de-77f3-41f9-b232-abebd51c1f4e"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="198" width="29" height="10" uuid="ac0888a1-e9af-421c-8704-8cd7252c6995"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="80" y="168" width="1" height="60" uuid="8f071c2c-0216-4868-a6dc-470932c08545"/>
+			</line>
+			<staticText>
+				<reportElement x="83" y="169" width="76" height="10" uuid="c8220a74-884a-4a9a-a556-f3fa5bf486ab"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CPF do recebedor:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="200" y="168" width="1" height="28" uuid="a1e55d13-4a64-46a7-9a1d-57548751827b"/>
+			</line>
+			<staticText>
+				<reportElement x="203" y="168" width="169" height="10" uuid="71fd7012-b610-4476-bdc5-3906f8e9cd35"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Nome completo do recebedor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="198" width="98" height="10" uuid="5f875b30-eecd-40ee-a91f-7891e5b786da"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Assinatura do recebedor:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="401" y="336" width="151" height="89" uuid="32e42e20-6a43-4ffc-8400-dc4d071e4264"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="311" width="551" height="15" uuid="086b9604-e21c-4afe-b0bb-670689065146"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Declaro que recebi os volumes informados neste documento em perfeito estado e dou por cumprido o presente contrato.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="297" width="550" height="1" uuid="8e2b88c0-040b-402b-a644-de9a41979da4"/>
+			</line>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="1" y="272" width="199" height="25" uuid="b530adac-1d9e-4b89-b745-3565c189596c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DECLARAÇÃO DE ENTREGA]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy - HH:mm:ss">
+				<reportElement x="382" y="273" width="171" height="10" uuid="100fad68-956e-4e51-8943-26431feb3377"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="347" width="100" height="15" uuid="c8c93050-a1ec-4196-ae02-dbf86b5566ae"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_entrega}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="347" width="50" height="15" uuid="bc779626-602c-44ab-8dad-c816e1baf5bd"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entrega:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="362" width="100" height="15" uuid="c951f05a-24ff-4cb0-a5e9-c8aaab2c372e"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{veiculo_placa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="362" width="50" height="15" uuid="fb0a8b66-937a-4d2f-9e33-07e2bca16252"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="377" width="100" height="15" uuid="93d1fba2-5207-43bb-99eb-9df816f912a2"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="377" width="50" height="15" uuid="e3e40080-ce32-4c4b-bf1c-dc10f8c6bca4"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="392" width="330" height="25" uuid="4d22f80a-7b76-44d6-af3f-e9c030113966"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="392" width="49" height="15" uuid="20c3fb9d-c8f6-4e86-a725-97a820908e4f"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Volumes:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="408" y="358" width="10" height="10" uuid="a24ae0b8-aa8b-4b83-bf4c-28cb703341e1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="420" y="356" width="125" height="15" uuid="c53a546a-eac1-4caa-82fb-00f3270040a3"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Entrega realizada.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="408" y="375" width="10" height="10" uuid="58b7dbaf-82bb-4dd2-9ff8-f1d9a18389d9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="420" y="372" width="125" height="15" uuid="2066a74a-b6ac-45af-a882-021ad9e26c7f"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Entrega cancelada.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="408" y="391" width="10" height="10" uuid="e8ba8aae-f71b-4171-aa4d-285d7ff9e929"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="420" y="389" width="125" height="15" uuid="168b83e9-7397-4720-94b1-4bc5dae09b6f"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Mercadoria recusada.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="406" width="125" height="15" uuid="134ae5bf-c7ff-43fb-888c-ed25188017c4"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Mercadoria avariada.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="408" y="408" width="10" height="10" uuid="aa289522-c272-470d-845c-8b62aa8181bc"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="402" y="337" width="150" height="15" uuid="e9656559-94de-448e-a1cf-f9198c88307a"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Situação da Entrega]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="440" width="551" height="60" uuid="1a332563-85f6-4097-8bb2-d327b25a202b"/>
+			</rectangle>
+			<line>
+				<reportElement x="1" y="468" width="549" height="1" uuid="5254fa5d-1636-4ae2-ac8e-5d1b061378fd"/>
+			</line>
+			<staticText>
+				<reportElement x="3" y="441" width="28" height="10" uuid="4b00d479-d2d3-4cf7-9ec6-ee694ba07886"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="470" width="29" height="10" uuid="5bd4fda0-032a-4b8b-907c-2da3da881bf2"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="80" y="440" width="1" height="60" uuid="b78096a7-cee8-43fc-8914-d7db81b096e5"/>
+			</line>
+			<staticText>
+				<reportElement x="83" y="441" width="76" height="10" uuid="d3a178ad-dfa8-4fe1-bb90-5f9dc5e955d4"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CPF do recebedor:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="200" y="440" width="1" height="28" uuid="58e8fdde-0fbb-4316-9329-f9ee83d27476"/>
+			</line>
+			<staticText>
+				<reportElement x="203" y="440" width="169" height="10" uuid="14eeb692-4c5c-476f-b3f7-7e591129da09"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Nome completo do recebedor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="470" width="98" height="10" uuid="18b251b9-005e-4ccb-be96-7d9a3683e8fe"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Assinatura do recebedor:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

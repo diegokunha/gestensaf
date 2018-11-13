@@ -16,7 +16,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name="Manutencao")
@@ -33,7 +35,9 @@ public class Manutencao implements Serializable {
 	private String descricao;
 	
 	@Column(name="km")
-	private String km;
+	@NotEmpty(message="Km é uma informação obrigatória!!")
+	@NumberFormat(pattern="0,00")
+	private Double km;
 	
 	@Column(name="dataManutencao")
 	@Temporal(TemporalType.DATE)
@@ -42,6 +46,7 @@ public class Manutencao implements Serializable {
 	private Date dataManutencao;
 	
 	@Column(name="valor")
+	@NumberFormat(pattern="0,00")
 	private Double valor;
 	
 	@ManyToOne
@@ -64,11 +69,11 @@ public class Manutencao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getKm() {
+	public Double getKm() {
 		return km;
 	}
 
-	public void setKm(String km) {
+	public void setKm(Double km) {
 		this.km = km;
 	}
 

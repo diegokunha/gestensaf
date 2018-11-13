@@ -27,7 +27,7 @@ public class VeiculoService {
 	}
 	
 	public Veiculo findByPlaca(String placa){
-		return vr.findByPlaca(placa);
+		return vr.findOne(placa);
 	}
 	
 }

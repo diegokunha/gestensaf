@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="fragments/main_layout">
+<head>
+<title>GESTENSAF - Custoss</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<main layout:fragment="content" class="app-main">
+		<div class="wrapper">
+			<div class="page">
+				<div class="page-inner">
+					<header class="page-title-bar">
+						<div class="d-md-flex align-itens-md-start">
+							<h1 class="page-title mr-sm-auto">Custos</h1>			
+						</div>
+					</header>
+					<div class="page-section">
+						<section class="card card-fluid">
+							<div class="card-body">
+								<div class="form-group" th:class="${#strings.isEmpty(message)} ? 'panel panel-default' : 'panel panel-success'">
+									<div id="accordion" class="card-expansion">
+										<header class="card-header border-0" id="headingOne">
+										    <button class="btn btn-reset" data-toggle="collapse" data-target="#collapseOne">
+										    	<span class="collapse-indicator mr-2">
+										      		<i class="fa fa-fw fa-caret-right"></i>
+										      	</span>
+											    <a class="collapsed card-link" data-toggle="collapse" href="#collapseOne">
+											    	<span>Filtro</span>
+											    </a>
+								        	</button>
+									    </header>
+										<div id="collapseOne" class="collapse" data-parent="#accordion" aria-lalledby="headingOne">
+											<div class="card">
+												<div class="card-body pt-0" style="margin-top: 20px;">
+											    	<form method="get" role="search">
+														<fieldset>
+															<div class="row">
+																	<div class="col-2">
+																		<label for="dataIni">Data Inicial:</label>
+																		<input type="date" id="dataIni" class="form-control"/>
+																	</div>
+																	<div class="col-2">
+																		<label for="dataFim">Data Final:</label>
+																		<input type="date" id="dataFim" class="form-control" />
+																	</div>
+																	<div class="col-3">
+																		<label for="dataIni">Filtro:</label>																	
+																		<div class="input-group mb-3">
+																			<input type="text" class="form-control"/>
+																			<div class="input-group-append">
+																				<button class="btn btn-primary" type="submit">
+																					<i class="fas fa-search"></i>
+																				</button>
+																			</div>																		
+																		</div>														
+																	</div>
+																</div>
+														</fieldset>
+													</form>
+											    </div>
+										    </div>
+										</div>
+									</div>
+									
+									<div class="panel-heading">
+						                <span th:text="${#strings.isEmpty(message)} ? '' : ${message}"> </span>
+						            </div>
+									
+									<div class="table-responsive">
+										<table class="table table-hover">
+											<thead class="thead-dark">
+												<tr>
+													<th>Código</th>
+													<th style="width:600px; min-width:600px;">Descrição</th>
+													<th>Data</th>
+													<th>Valor</th>
+													<th style="width:140px; min-width:140px;">&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="custo : ${custos}">
+													<td><span th:text="${custo.idCusto}"></span></td>
+													<td><span th:text="${custo.descricao}"></span></td>
+													<td></td>
+													<td><span th:text="${#numbers.formatDecimal(custo.custoTotal, 0, 'COMMA', 2, 'POINT')}"></span></td>
+													<td class="align-middle text-right">
+														<a href="#" class="btn btn-sm btn-secondary">
+															<i class="fas fa-pen" title="Editar"></i>
+															<span class="sr-only">Editar</span>
+														</a>
+														<a href="#" class="btn btn-sm btn-secondary">
+															<i class="far fa-trash-alt" title="Excluir"></i>
+															<span class="sr-only">Remove</span>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

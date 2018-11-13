@@ -26,6 +26,15 @@ function calcular() {
   		document.getElementById("custoTotal").value = t.toLocaleString('pt-BR');
 }
 
+$(document).ready(function(){
+	$('#btnSalvar').on('click', function(e) {
+		e.preventDefault();
+		$('#idEntregaCusto').val($('#idEntrega').val())
+		$('#formCusto').submit();
+	});
+});
+
+
 </script>
 
 </head>
@@ -38,11 +47,15 @@ function calcular() {
 				<header class="page-title-bar">
 					<div class="d-md-flex align-itens-md-start">
 						<h1 class="page-title mr-sm-auto">Finalização da Entrega <span th:object="${finalEntrega}" th:text="*{idEntrega}"></span></h1>
+						<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${message}">						 	
+						 	<span th:text="${#strings.isEmpty(message)} ? '' : ${message}" />		
+						</div>
 					</div>
 				</header>
 				<section id="base-style" class="card">
 					<div class="card-body">
 							<form th:object="${finalEntrega}" method="get" class="needs-validation was-validate">
+								<input type="hidden" id="idEntrega" th:field="*{idEntrega}"/>
 								<fieldset>
 									<legend>Dados da Entrega</legend>								
 									<div class="container">
@@ -68,47 +81,41 @@ function calcular() {
 								</fieldset>									
 								</form>
 								<hr/>
-								<form th:action="@{/salvaCusto}" th:object="${finalCusto}" method="post" class="needs-validation was-validate">
+								<form th:action="@{/salvaCusto}" th:object="${custo}" method="post" class="needs-validation was-validate" id="formCusto">
+									<input type="hidden" name="entrega.idEntrega" id="idEntregaCusto" />
 									<fieldset>
 										<legend>Custos da Entrega</legend>
-										<div class="form-group row">
-											<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
-												<div th:each="detailedError : ${#fields.detailedErrors()}">
-													<span th:text="${detailedError.message}"></span>
-												</div>
-											</div>
-										</div>
 										<div class="container">
 											<div class="row">
 												<div class="col-2 form-group">
 													<label for="kmIni">Km Inicial:</label>
-													<input type="text" class="form-control" id="kmIni" th:field="*{kmIni}" placeholder="0,00" onKeyPress="return(moeda(this,'.',',',event))"/>
+													<input type="text" class="form-control" id="kmIni" name="kmIni" placeholder="0,00" onKeyPress="return(moeda(this,'.',',',event))"/>
 												</div>
 												<div class="col-2 form-group">
 													<label for="kmFim">Km Final:</label>
-													<input type="text" class="form-control" id="kmFim" th:field="*{kmFim}" placeholder="0,00" onKeyPress="return(moeda(this,'.',',',event))"/>
+													<input type="text" class="form-control" id="kmFim" name="kmFim" placeholder="0,00" onKeyPress="return(moeda(this,'.',',',event))"/>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-2 form-group">
 													<label for="custoVeiculo">Custo com Veículo:</label>
-													<input type="text" class="form-control" id="custoVeiculo" th:field="*{custoVeiculo}" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
+													<input type="text" class="form-control" id="custoVeiculo" name="custoVeiculo" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
 												</div>
 												<div class="col-2 form-group">
 													<label for="custoPedagio">Custo com Pedágio:</label>
-													<input type="text" class="form-control" id="custoPedagio" th:field="*{custoPedagio}" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
+													<input type="text" class="form-control" id="custoPedagio" name="custoPedagio" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
 												</div>
 												<div class="col-2 form-group">
 													<label for="custoMotorista">Custo com Motorista:</label>
-													<input type="text" class="form-control" id="custoMotorista" th:field="*{custoMotorista}" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
+													<input type="text" class="form-control" id="custoMotorista" name="custoMotorista" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
 												</div>
 												<div class="col-2 form-group">
 													<label for="outrosCustos">Outros Custos:</label>
-													<input type="text" class="form-control" id="outrosCustos" th:field="*{outrosCusto}" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
+													<input type="text" class="form-control" id="outrosCustos" name="outrosCusto" placeholder="0,00" onkeyup='calcular()' onKeyPress="return(moeda(this,'.',',',event))"/>
 												</div>
 												<div class="col-2 form-group">
 													<label for="totalCustos">Total dos Custos:</label>
-													<input type="text" class="form-control" id="custoTotal" th:field="*{custoTotal}" placeholder="0,00" readonly="readonly" onKeyPress="return(moeda(this,'.',',',event))"/>
+													<input type="text" class="form-control" id="custoTotal" name="custoTotal" placeholder="0,00" readonly="readonly" onKeyPress="return(moeda(this,'.',',',event))"/>
 												</div>
 											</div>
 										</div>
@@ -118,13 +125,13 @@ function calcular() {
 									<legend>Descrição</legend>
 									<div class="container">
 										<div class="form-group">
-												<textarea class="form-control" id="descricao" rows="3" ></textarea>
+												<textarea class="form-control" id="descricao" rows="3" name="descricao" ></textarea>
 										</div>
 										<div class="form-group">
-											<button type="submit" class="btn btn-primary">Salvar</button>
-											<button type="submit" class="btn btn-secondary">
-												<a th:href="@{/entrega}">Cancelar</a>
-											</button>												
+											<button type="button" id="btnSalvar" class="btn btn-primary">Salvar</button>
+											<a th:href="@{/entrega}">	
+												<button type="button" class="btn btn-secondary">Cancelar</button>
+											</a>												
 										</div>
 									</div>
 								</fieldset>

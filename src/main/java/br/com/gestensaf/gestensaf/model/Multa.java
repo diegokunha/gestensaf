@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name="Multa")
@@ -23,15 +24,21 @@ public class Multa {
 	private String codMulta;
 	
 	@Column(name="numInfracao")
-	private int numInfracao;
+	private String numInfracao;
 	
 	@Column(name="valor")
+	@NumberFormat(pattern="0,00")
 	private Double valor;
 	
 	@Column(name="DataMulta")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataMulta;
+	
+	@Column(name="DataPagamento")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dataPagamento;
 	
 	@Column(name="HoraMulta")
 	private String horaMulta;
@@ -63,11 +70,11 @@ public class Multa {
 		this.codMulta = codMulta;
 	}
 
-	public int getNumInfracao() {
+	public String getNumInfracao() {
 		return numInfracao;
 	}
 
-	public void setNumInfracao(int numInfracao) {
+	public void setNumInfracao(String numInfracao) {
 		this.numInfracao = numInfracao;
 	}
 
@@ -133,6 +140,14 @@ public class Multa {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public Date getDataPagamento() {
+		return dataPagamento;
+	}
+
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
 	}
 	
 	

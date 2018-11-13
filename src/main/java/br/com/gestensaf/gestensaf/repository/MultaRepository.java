@@ -9,4 +9,5 @@ import br.com.gestensaf.gestensaf.model.Multa;
 @Repository
 public interface MultaRepository extends JpaRepository<Multa, String> {
 
+	
 }

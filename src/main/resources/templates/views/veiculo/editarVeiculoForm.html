@@ -20,9 +20,16 @@
 					<div class="page-section">
 						<section id="base-style" class="card">
 							<div class="card-body">
-								<form th:action="@{../alteraVeiculo}" th:object="${veiculo}" method="post" class="needs-validation">
+								<form th:action="@{/alteraVeiculo}" th:object="${veiculo}" method="post" class="needs-validation">
 									<input type="hidden" th:field="*{status}"/>
 									<fieldset>
+										<div class="form-group row">
+											<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+												<div th:each="detailedError : ${#fields.detailedErrors()}">
+													<span th:text="${detailedError.message}"></span>
+												</div>
+											</div>
+										</div>
 										<div class="container">
 											<div class="row">
 												<div class="col-2 form-group">

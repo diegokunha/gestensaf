@@ -12,7 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,9 +28,11 @@ public class Funcionario implements Serializable{
 	@Id
 	@Column(name="cpf")
 	@CPF
+	@NotBlank(message="O cpf é um preenchimento obrigatória.")
 	private String cpf;
 		
 	@Column(name="nome")
+	@NotBlank(message="O nome é um preenchimento obrigatória.")
 	private String nome;
 	
 	@Column(name="numero")
@@ -39,18 +44,21 @@ public class Funcionario implements Serializable{
 	@Column(name="dataNasc")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message="A data de nascimento é um preenchimento obrigatória.")
 	private Date dataNasc;
 	
 	@Column(name="telefone")
 	private String telefone;
 	
 	@Column(name="celular")
+	@NotBlank(message="O celular é um preenchimento obrigatória.")
 	private String celular;
 	
 	@Column(name="email")
 	private String email;
 	
 	@Column(name="funcao")
+	@NotBlank(message="A função é um preenchimento obrigatória.")
 	private String funcao;
 	
 	@Column(name="situacao")
@@ -100,6 +108,7 @@ public class Funcionario implements Serializable{
 	private String login;
 	
 	@Column(name="senha")
+	@Size(min=6)
 	private String senha;
 	
 	@ManyToOne
