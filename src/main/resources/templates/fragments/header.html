@@ -20,9 +20,14 @@
 						<a class="dropdown-item" href="#">
 							<span class="dropdown-icon fas fa-user"></span>Perfil
 						</a>
-						<a class="dropdown-item" href="#">
-							<span class="dropdown-icon fas fa-sign-out-alt"></span>Sair
-						</a>
+						<form th:action="@{/logout}" method="post">
+							<a class="dropdown-item btn btn-link">
+								<button type="submit">
+									<span class="dropdown-icon fas fa-sign-out-alt"></span>Sair
+								</button>
+							</a>
+						</form>
+						
 					</div>
 				</div>
 			</div>
