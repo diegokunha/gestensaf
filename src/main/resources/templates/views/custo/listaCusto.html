@@ -74,7 +74,8 @@
 											<thead class="thead-dark">
 												<tr>
 													<th>Código</th>
-													<th style="width:600px; min-width:600px;">Descrição</th>
+													<th style="width:500px; min-width:500px;">Descrição</th>
+													<th>Entrega</th>
 													<th>Data</th>
 													<th>Valor</th>
 													<th style="width:140px; min-width:140px;">&nbsp;</th>
@@ -84,14 +85,15 @@
 												<tr th:each="custo : ${custos}">
 													<td><span th:text="${custo.idCusto}"></span></td>
 													<td><span th:text="${custo.descricao}"></span></td>
-													<td></td>
+													<td><span th:text="${custo.entrega.idEntrega}"></span></td>
+													<td><span th:text="${#dates.format(custo.entrega.dataEntrega, 'dd/MM/yyyy')}"></span></td>
 													<td><span th:text="${#numbers.formatDecimal(custo.custoTotal, 0, 'COMMA', 2, 'POINT')}"></span></td>
 													<td class="align-middle text-right">
 														<a href="#" class="btn btn-sm btn-secondary">
 															<i class="fas fa-pen" title="Editar"></i>
 															<span class="sr-only">Editar</span>
 														</a>
-														<a href="#" class="btn btn-sm btn-secondary">
+														<a th:href="@{/excluiCusto/{id}?(id = ${custo.idCusto})}" class="btn btn-sm btn-secondary">
 															<i class="far fa-trash-alt" title="Excluir"></i>
 															<span class="sr-only">Remove</span>
 														</a>

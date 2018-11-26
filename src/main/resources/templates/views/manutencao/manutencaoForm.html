@@ -30,7 +30,7 @@
 						<section id="base-style" class="card">
 							<div class="card-body">
 								<form th:object="${manutencao}" th:action="@{/salvaManutencao}" method="post" class="needs-validation was-validate">
-									<input type="hidden" name="idManutencao"/>
+									<input type="hidden" th:field="*{idManutencao}"/>
 									<fieldset>
 										<div class="form-group row">
 											<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">

@@ -10,6 +10,8 @@
 	rel="stylesheet" />
 <!-- End Google font -->
 
+<link rel="shortcut icon" th:href="@{/images/gestensaf.ico}" />
+
 <!-- INÍCIO PLUGINS STYLES -->
 <link rel="stylesheet" href="/css/all.css" />
 <!-- FIM PLUGINS STYLES -->
@@ -22,8 +24,7 @@
 <body>
 
 	<main class="auth"> <header id="auth-header" class="auth-header"
-		style="background-image: url(/img/background.jpg);">
-		<h1 class="display-3">GESTENSAF</h1>
+		style="background-image: url(/images/background.jpg);">
 		<h1>
 			<span class="sr-only">LOGO</span>
 		</h1>
@@ -32,6 +33,10 @@
 
 
 	<form th:action="@{/index}" method="post" class="auth-form">
+
+		<div>
+			<img width="350px" height="66px" th:src="@{/images/logo_2.png}" />
+		</div><br/><br/>
 
 		<div th:if="${param.error}">
 			<div class="alert alert-danger">Usuário/senha inválidos!</div>

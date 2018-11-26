@@ -93,7 +93,7 @@ public class ManutencaoController {
 	public ModelAndView salvaManutencao(@Valid Manutencao manutencao, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			attributes.addFlashAttribute("message", "Dados incorretos...");
-			return listaManutencao();
+			return novaManutencao(manutencao);
 		}
 		
 		/*

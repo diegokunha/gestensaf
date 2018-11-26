@@ -18,8 +18,8 @@ public class CustoService {
 		cr.saveAndFlush(custo);
 	}
 	
-	public void excluiCusto(Custo custo) {
-		cr.delete(custo);
+	public void excluiCusto(long idCusto) {
+		cr.delete(idCusto);
 	}
 	
 	public List<Custo> listaCusto(){

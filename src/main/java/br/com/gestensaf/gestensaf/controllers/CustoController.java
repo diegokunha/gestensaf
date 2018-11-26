@@ -4,6 +4,7 @@ package br.com.gestensaf.gestensaf.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.gestensaf.gestensaf.services.CustoService;
@@ -22,5 +23,16 @@ public class CustoController {
 		return mv;
 	}
 	
+	@GetMapping("/excluiCusto/{id}")
+	public ModelAndView excluiCusto(@PathVariable("id") long idCusto) {
+		cs.excluiCusto(idCusto);
+		
+		return listaCustos();
+	}
+	
+	@GetMapping("editaCusto/{id}")
+	public editaCusto(@PathVariable ("id") long idCusto) {
+		
+	}
 	
 }

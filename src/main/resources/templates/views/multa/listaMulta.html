@@ -103,16 +103,16 @@
 														<span th:case="false">A PAGAR</span>
 													</td>
 													<td class="align-middle text-right">
-														<a class="btn btn-sm btn-secondary" th:href="@{/editaMulta/{codMulta}(codMulta = ${multa.codMulta})}">
-															<i class="fas fa-pen" title="Editar"></i>
+														<a class="btn btn-sm btn-secondary" th:href="@{/editaMulta/{codMulta}(codMulta = ${multa.codMulta})}" title="Editar">
+															<i class="fas fa-pen" ></i>
 															<span class="sr-only">Editar</span>
 														</a>
 														<a class="btn btn-sm btn-secondary" href="#" title="Finalizar">
 															<i class="fas fa-check"></i>
 															<span class="sr-only">Finalizar</span>
 														</a>
-														<a class="btn btn-sm btn-secondary" th:href="@{/excluiMulta/{codMulta}(codMulta = ${multa.codMulta})}">
-															<i class="far fa-trash-alt" title="Excluir"></i>
+														<a class="btn btn-sm btn-secondary" th:href="@{/excluiMulta/{codMulta}(codMulta = ${multa.codMulta})}" title="Excluir">
+															<i class="far fa-trash-alt" ></i>
 															<span class="sr-only">Remove</span>
 														</a>
 													</td>

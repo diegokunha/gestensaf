@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -35,7 +36,6 @@ public class Manutencao implements Serializable {
 	private String descricao;
 	
 	@Column(name="km")
-	@NotEmpty(message="Km é uma informação obrigatória!!")
 	@NumberFormat(pattern="0,00")
 	private Double km;
 	

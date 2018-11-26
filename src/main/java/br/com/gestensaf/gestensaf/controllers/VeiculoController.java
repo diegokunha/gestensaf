@@ -74,6 +74,7 @@ public class VeiculoController {
 			return novoVeiculo(veiculo);
 		}
 		
+		
 		Veiculo placaIgual = vs.findByPlaca(veiculo.getPlaca());
 		if(veiculo.getPlaca().equals(placaIgual)) {
 			
