@@ -108,7 +108,6 @@ public class Funcionario implements Serializable{
 	private String login;
 	
 	@Column(name="senha")
-	@Size(min=6)
 	private String senha;
 	
 	@ManyToOne

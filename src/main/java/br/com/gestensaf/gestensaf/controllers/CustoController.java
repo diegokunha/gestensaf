@@ -30,9 +30,6 @@ public class CustoController {
 		return listaCustos();
 	}
 	
-	@GetMapping("editaCusto/{id}")
-	public editaCusto(@PathVariable ("id") long idCusto) {
-		
-	}
+	
 	
 }

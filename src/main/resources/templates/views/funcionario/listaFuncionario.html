@@ -3,7 +3,6 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="fragments/main_layout">
 <head>
-<title>GESTENSAF - Funcionários</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script type="text/javascript" th:src="@{/js/funcionarios.js}"></script>
 </head>
@@ -20,7 +19,7 @@
 							</button>
 						</a>
 						<div class="d-md-flex align-itens-md-start">
-							<h1 class="page-title mr-sm-auto">Funcionários</h1>
+							<h1 class="page-title mr-sm-auto">Lista de Funcionários</h1>
 							
 							<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
 							<div class="alert alert-success alert-dismissible fade show" role="alert"  th:if="${message}">						 	
@@ -52,6 +51,7 @@
 													<th>Data de Nascimento</th>
 													<th>Função</th>
 													<th>Contato</th>
+													<th>Situação</th>
 													<th style="width:100px; min-width:100px;">&nbsp;</th>
 												</tr>
 											</thead>
@@ -62,6 +62,10 @@
 													<td th:text="${#dates.format(funcionario.dataNasc, 'dd/MM/yyyy')}" />
 													<td th:text="${funcionario.funcao}" />
 													<td th:text="${funcionario.celular}" />
+													<td th:switch="${funcionario.situacao}">
+														<span th:case="true"><i class="fas fa-check-circle" style="color: green;" title="Ativo"></i></span>
+														<span th:case="false"><i class="fas fa-times-circle" style="color: red;" title="Inativo"></i></span>
+													</td>
 													
 													<td class="align-middle text-right">
 														<a th:href="@{/editarFuncionario/{cpf}(cpf = ${funcionario.cpf})}" class="btn btn-sm btn-secondary" title="Editar">
